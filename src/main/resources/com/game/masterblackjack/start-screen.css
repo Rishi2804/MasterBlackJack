@@ -1,0 +1,59 @@
+.label {
+    -fx-font-family: 'Brush Script MT', cursive;
+    -fx-font-size: 60;
+    -fx-text-fill: "white";
+    -fx-text-fill: #C5B358;
+}
+
+.toggle-button {
+    -fx-background-color: #FFD700; /* Gold */
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 14px;
+    -fx-padding: 8px 12px;
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-border-color: transparent; /* No border */
+}
+
+.toggle-button:selected {
+    -fx-background-color: #008000; /* Green */
+    -fx-text-fill: white; /* Text color when selected */
+    -fx-border-color: #008000; /* Border color when selected */
+    -fx-text: "AI Player"
+}
+
+.text-field {
+    -fx-background-color: #363636; /* Dark background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-family: "Arial", sans-serif; /* Font family */
+    -fx-font-size: 14px; /* Font size */
+    -fx-padding: 8px; /* Padding */
+    -fx-border-color: #C5B358; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+}
+
+.text-field:focused {
+    -fx-border-color: #FFD700; /* Yellow border color when focused */
+    -fx-border-width: 2px; /* Border width */
+}
+
+.button {
+    -fx-background-color: #FFD700; /* Gold background color */
+    -fx-text-fill: #B22222; /* Text color */
+    -fx-font-family: "Arial", sans-serif; /* Font family */
+    -fx-font-size: 16px; /* Font size */
+    -fx-padding: 10px 20px; /* Padding */
+    -fx-border-color: #C5B358; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+    -fx-border-radius: 5px; /* Border radius */
+    -fx-background-radius: 5px; /* Background radius */
+    -fx-cursor: hand; /* Cursor on hover */
+}
+
+.button:hover {
+    -fx-background-color: #FFDF00; /* Lighter gold background color on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #FFA500; /* Orange background color when pressed */
+}

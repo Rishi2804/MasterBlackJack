@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1092.5" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.masterblackjack.Main">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="1092.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/blackjack_table.JPG" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000009b" height="650.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="1092.5" />
+      <Label alignment="CENTER" layoutX="164.0" layoutY="77.0" prefHeight="53.0" prefWidth="767.0" text="Welcome to MasterBlackjack!" textAlignment="CENTER" />
+      <Button layoutX="490.25" layoutY="570.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="134.0" text="Start Game" />
+      <Group>
+         <TextField layoutX="469.0" layoutY="413.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField layoutX="469.0" layoutY="451.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
+         <ToggleButton layoutX="496.0" layoutY="489.0" mnemonicParsing="false" prefWidth="114.0" text="Human Player" />
+      </Group>
+      <Group>
+         <TextField layoutX="216.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField layoutX="216.0" layoutY="405.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
+         <ToggleButton layoutX="244.0" layoutY="443.0" mnemonicParsing="false" prefWidth="114.0" text="Human Player" />
+      </Group>
+      <Group>
+         <TextField layoutX="72.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField layoutX="72.0" layoutY="265.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
+         <ToggleButton layoutX="100.0" layoutY="303.0" mnemonicParsing="false" prefWidth="114.0" text="Human Player" />
+      </Group>
+      <Group>
+         <TextField layoutX="706.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField layoutX="706.0" layoutY="405.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
+         <ToggleButton layoutX="734.0" layoutY="443.0" mnemonicParsing="false" prefWidth="114.0" text="Human Player" />
+      </Group>
+      <Group>
+         <TextField layoutX="850.5" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField layoutX="850.5" layoutY="265.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
+         <ToggleButton layoutX="878.5" layoutY="303.0" mnemonicParsing="false" prefWidth="114.0" text="Human Player" />
+      </Group>
+   </children>
+</AnchorPane>

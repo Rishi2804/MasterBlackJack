@@ -1,6 +1,5 @@
-package com.game.masterblackjack;
+package com.game.controller;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,8 +14,8 @@ public class StartScreenController {
     private Scene scene;
     private Parent root;
 
-    public void startGameView(ActionEvent e) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("game-screen.fxml"));
+    public void gameViewSwitcher(ActionEvent e) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/com/game/masterblackjack/game-screen.fxml"));
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

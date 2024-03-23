@@ -1,4 +1,4 @@
-package com.game.masterblackjack;
+package com.game.controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +13,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("start-screen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/game/masterblackjack/start-screen.fxml"));
         stage.setTitle("MasterBlackjack");
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("start-screen.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/start-screen.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

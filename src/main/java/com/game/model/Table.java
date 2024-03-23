@@ -1,15 +1,21 @@
 package com.game.model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 public class Table {
     private Deck deck;
-    private ArrayList<Player> players;
+    private List<Player> players;
     private Dealer dealer;
 
     public Table() {
         deck = new Deck(6);
         players = new ArrayList<>();
         dealer = new Dealer();
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
     // add player to the game

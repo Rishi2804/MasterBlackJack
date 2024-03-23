@@ -21,5 +21,7 @@ public class GameController {
         }
     }
 
-
+    public void hit() {
+        table.hit(table.getPlayers().get(playerTurnIndex), 0);
+    }
 }

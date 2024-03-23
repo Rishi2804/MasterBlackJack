@@ -5,15 +5,11 @@ public class Table {
     private Deck deck;
     private ArrayList<Player> players;
     private Dealer dealer;
-    private int playerTurnIndex;
-    private int playerHandIndex;
 
     public Table() {
-        deck = new Deck();
+        deck = new Deck(6);
         players = new ArrayList<>();
         dealer = new Dealer();
-        playerTurnIndex = 0;
-        playerHandIndex = 0;
     }
 
     // add player to the game
@@ -26,8 +22,6 @@ public class Table {
     public void startGame() {
         deck.shuffle();
         dealInitialCards();
-        playerTurnIndex = 0;
-        playerHandIndex = 0;
     }
 
     // helper for initial dealing of cards
@@ -54,31 +48,10 @@ public class Table {
     }
 
     // Player action: Hit - add card to player hand
-    public void hit(Player player) {
-        ArrayList<Card> hand = player.getHand(playerHandIndex);
+    public void hit(Player player, int handIndex) {
+        ArrayList<Card> hand = player.getHand(handIndex);
         hand.add(deck.dealCard());
-        int handValue = player.getHandTotal(playerHandIndex);
-        if (handValue > 21) {
-            // notify bust
-            changeTurn();
-        }
-    }
-
-    // Player action: Stand - move onto the next hand's turn
-    public void stand() {
-        changeTurn();
-    }
-
-    // helper for changing the turn indicies
-    private void changeTurn() {
-        playerHandIndex++;
-        if (playerHandIndex > players.get(playerTurnIndex).getHands().size()) {
-            playerHandIndex = 0;
-            playerTurnIndex++;
-        }
-        if (playerTurnIndex > players.size()) {
-            playerTurnIndex = -1;
-        }
+        int handValue = player.getHandTotal(handIndex);
     }
 
     // helper for confirming whether player can split their hand or not

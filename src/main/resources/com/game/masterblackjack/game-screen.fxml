@@ -4,12 +4,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1092.5" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.controller.Main">
+<AnchorPane prefHeight="650.0" prefWidth="1092.5" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.controller.GameController">
     <children>
         <ImageView fitHeight="650.0" fitWidth="1092.5" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@images/blackjack_table.JPG" />
             </image>
         </ImageView>
+      <ImageView fitHeight="121.0" fitWidth="84.0" layoutX="516.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/cards/2_of_spades.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

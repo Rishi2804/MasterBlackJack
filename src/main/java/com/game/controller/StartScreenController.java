@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StartScreenController {
     private Stage stage;
@@ -22,6 +24,8 @@ public class StartScreenController {
     private TextField numericTextField1;
     @FXML
     private TextField numericTextField2;
+    @FXML
+    private TextField nameTextField3;
     @FXML
     private TextField numericTextField3;
     @FXML
@@ -38,7 +42,16 @@ public class StartScreenController {
     }
 
     public void gameViewSwitcher(ActionEvent e) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/com/game/masterblackjack/game-screen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/game/masterblackjack/game-screen.fxml"));
+        root = loader.load();
+        GameController gameController = loader.getController();
+
+        List<String> names = new ArrayList<>();
+        List<String> chips = new ArrayList<>();
+        names.add(nameTextField3.getText());
+        chips.add(numericTextField3.getText());
+        gameController.addPlayers(names, chips);
+
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

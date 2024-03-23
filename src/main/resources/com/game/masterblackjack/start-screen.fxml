@@ -32,7 +32,7 @@
          <ToggleButton layoutX="244.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
-         <TextField layoutX="469.0" layoutY="413.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField fx:id="nameTextField3" layoutX="469.0" layoutY="413.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField3" layoutX="469.0" layoutY="451.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
          <ToggleButton layoutX="496.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>

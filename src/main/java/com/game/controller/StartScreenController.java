@@ -18,7 +18,7 @@ import java.util.List;
 public class StartScreenController {
     private Stage stage;
     private Scene scene;
-    private Parent root;
+    public Parent root;
 
     @FXML
     private TextField numericTextField1;
@@ -50,13 +50,14 @@ public class StartScreenController {
         List<String> chips = new ArrayList<>();
         names.add(nameTextField3.getText());
         chips.add(numericTextField3.getText());
-        gameController.addPlayers(names, chips);
 
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();
+        gameController.initialize(stage);
+        gameController.addPlayers(names, chips);
+//        scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
+//        stage.setScene(scene);
+//        stage.show();
     }
 
     public void handleNumericInput(KeyEvent event) {

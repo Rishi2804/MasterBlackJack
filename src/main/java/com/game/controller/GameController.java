@@ -9,14 +9,16 @@ import java.util.List;
 public class GameController {
     private Table table;
     private GameView view;
-    int playerTurnIndex;
-    int playerHandIndex;
+    private int playerTurnIndex;
+    private int playerHandIndex;
+    private boolean gameInProgress;
 
 
     public void initialize(Stage stage) {
         table = new Table();
         playerTurnIndex = 0;
         playerHandIndex = 0;
+        gameInProgress = false;
         view = new GameView(this);
         view.startupScreen(stage);
     }
@@ -30,7 +32,9 @@ public class GameController {
 
     public void startGame() {
         table.startGame();
-
+        playerTurnIndex = 0;
+        playerHandIndex = 0;
+        gameInProgress = true;
         // add all the intial cards to the display
         for (int i = 0; i < table.getPlayers().size(); i++) {
             for (int j = 0; j < table.getPlayers().get(i).getHands().size(); j++) {
@@ -42,10 +46,36 @@ public class GameController {
         }
     }
 
-
-
     public void hit() {
-        Card card = table.hit(table.getPlayers().get(playerTurnIndex), 0);
-        view.addToHand(card.getString(), playerTurnIndex, playerHandIndex);
+        if (gameInProgress) {
+            Player currentPlayer = table.getPlayers().get(playerTurnIndex);
+            Card card = table.hit(currentPlayer, playerHandIndex);
+            view.addToHand(card.getString(), playerTurnIndex, playerHandIndex);
+            if (currentPlayer.getHandTotal(playerHandIndex) > 21) {
+                // BUST
+                nextTurn(currentPlayer);
+            }
+        }
     }
+
+    public void stand() {
+        if (playerTurnIndex != -1) nextTurn(table.getPlayers().get(playerTurnIndex));
+    }
+
+    private void nextTurn(Player currentPlayer) {
+        if (playerTurnIndex != -1) {
+            playerHandIndex++;
+            if (playerHandIndex + 1 > currentPlayer.getHands().size()) {
+                playerHandIndex = 0;
+                playerTurnIndex++;
+                if (playerTurnIndex + 1 > table.getPlayers().size()) {
+                    // end game
+                    playerTurnIndex = -1;
+                    playerHandIndex = -1;
+                    gameInProgress = false;
+                }
+            }
+        }
+    }
+
 }

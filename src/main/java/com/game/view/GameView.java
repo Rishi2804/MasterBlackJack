@@ -9,22 +9,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameView {
     GameController gameController;
     private Stage stage;
     private Scene scene;
     private AnchorPane root;
+    private List<HandView> playerHands;
 
     public GameView(GameController gc) {
         this.gameController = gc;
+        this.playerHands = new ArrayList<>();
     }
 
-    public void addToHand(String cardName, int playerIndex) {
-        CardView newCard = new CardView(cardName);
-        newCard.getCard().setX(516.0);
-        newCard.getCard().setY(461.0);
-        root.getChildren().add(newCard.getCard());
-    }
     public void startupScreen(Stage stage) {
         // set background
         root = new AnchorPane();
@@ -52,6 +51,20 @@ public class GameView {
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void addNewPlayerHands() {
+        HandView hand = new HandView();
+        playerHands.add(hand);
+        root.getChildren().add(hand.getHands().get(0));
+    }
+
+    public void addToHand(String cardName, int playerIndex, int handIndex) {
+        CardView newCard = new CardView(cardName);
+        newCard.getCard().setX(516.0);
+        newCard.getCard().setY(461.0);
+        playerHands.get(playerIndex).addToHand(handIndex, newCard);
+        //root.getChildren().add(newCard.getCard());
     }
 
 }

@@ -24,6 +24,7 @@ public class GameController {
     public void addPlayers(List<String> names, List<String> chips) {
         for (int i = 0; i < names.size(); i++) {
             table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)));
+            view.addNewPlayerHands();
         }
     }
 
@@ -31,6 +32,6 @@ public class GameController {
 
     public void hit() {
         Card card = table.hit(table.getPlayers().get(playerTurnIndex), 0);
-        view.addToHand(card.getString(), playerTurnIndex);
+        view.addToHand(card.getString(), playerTurnIndex, playerHandIndex);
     }
 }

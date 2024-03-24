@@ -34,4 +34,14 @@ public class Card {
             return rank.ordinal() + 1;
         }
     }
+
+    public String getString() {
+        String rankString;
+        if (rank == Rank.JACK || rank == Rank.QUEEN || rank == Rank.KING || rank == Rank.ACE) {
+            rankString = rank.toString().toLowerCase();
+        } else {
+            rankString =String.valueOf(rank.ordinal() + 1);
+        }
+        return rankString + "_of_" + suit.toString().toLowerCase();
+    }
 }

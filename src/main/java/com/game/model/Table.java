@@ -54,10 +54,11 @@ public class Table {
     }
 
     // Player action: Hit - add card to player hand
-    public void hit(Player player, int handIndex) {
+    public Card hit(Player player, int handIndex) {
         ArrayList<Card> hand = player.getHand(handIndex);
-        hand.add(deck.dealCard());
-        int handValue = player.getHandTotal(handIndex);
+        Card card = deck.dealCard();
+        hand.add(card);
+        return card;
     }
 
     // helper for confirming whether player can split their hand or not

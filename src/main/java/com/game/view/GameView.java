@@ -43,8 +43,6 @@ public class GameView {
         hitBtn.setOnAction(actionEvent -> {gameController.hit();});
         btngroup.getChildren().add(hitBtn);
 
-//        cardView.setX(516.0);
-//        cardView.setY(461.0);
         root.getChildren().add(background);
         root.getChildren().add(btngroup);
         scene = new Scene(root);
@@ -64,7 +62,6 @@ public class GameView {
         newCard.getCard().setX(516.0);
         newCard.getCard().setY(461.0);
         playerHands.get(playerIndex).addToHand(handIndex, newCard);
-        //root.getChildren().add(newCard.getCard());
     }
 
 }

@@ -54,10 +54,7 @@ public class StartScreenController {
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         gameController.initialize(stage);
         gameController.addPlayers(names, chips);
-//        scene = new Scene(root);
-//        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
-//        stage.setScene(scene);
-//        stage.show();
+        gameController.startGame();
     }
 
     public void handleNumericInput(KeyEvent event) {

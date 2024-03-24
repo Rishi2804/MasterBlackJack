@@ -28,6 +28,20 @@ public class GameController {
         }
     }
 
+    public void startGame() {
+        table.startGame();
+
+        // add all the intial cards to the display
+        for (int i = 0; i < table.getPlayers().size(); i++) {
+            for (int j = 0; j < table.getPlayers().get(i).getHands().size(); j++) {
+                for (int k = 0; k < table.getPlayers().get(i).getHand(j).size(); k++) {
+                    Card card = table.getPlayers().get(i).getHand(j).get(k);
+                    view.addToHand(card.getString(), i, j);
+                }
+            }
+        }
+    }
+
 
 
     public void hit() {

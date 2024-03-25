@@ -18,10 +18,12 @@ public class GameView {
     private Scene scene;
     private AnchorPane root;
     private List<HandView> playerHands;
+    private HandView dealerHand;
 
     public GameView(GameController gc) {
         this.gameController = gc;
         this.playerHands = new ArrayList<>();
+        this.dealerHand = new HandView();
     }
 
     public void startupScreen(Stage stage) {
@@ -45,6 +47,7 @@ public class GameView {
 
         root.getChildren().add(background);
         root.getChildren().add(btngroup);
+        root.getChildren().add(dealerHand.getHand());
         scene = new Scene(root);
         this.stage = stage;
         stage.setScene(scene);
@@ -62,6 +65,13 @@ public class GameView {
         newCard.getCard().setX(516.0);
         newCard.getCard().setY(461.0);
         playerHands.get(playerIndex).addToHand(newCard);
+    }
+
+    public void addToDealerHand(String cardName) {
+        CardView newCard = new CardView(cardName);
+        newCard.getCard().setX(516.0);
+        newCard.getCard().setY(18.0);
+        dealerHand.addToHand(newCard);
     }
 
 }

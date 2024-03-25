@@ -18,6 +18,10 @@ public class Table {
         return players;
     }
 
+    public Dealer getDealer() {
+        return dealer;
+    }
+
     // add player to the game
     public void addPlayer(String playerName, int playerChips) {
         Player player = new Player(playerName, playerChips);

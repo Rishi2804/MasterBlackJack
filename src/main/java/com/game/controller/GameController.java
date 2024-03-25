@@ -32,13 +32,17 @@ public class GameController {
         table.startGame();
         playerTurnIndex = 0;
         gameInProgress = true;
-        // add all the intial cards to the display
+        // add all the intial player cards to the display
         for (int i = 0; i < table.getPlayers().size(); i++) {
             for (int j = 0; j < table.getPlayers().get(i).getHand().getCards().size(); j++) {
                 Card card = table.getPlayers().get(i).getHand().getCards().get(j);
                 view.addToHand(card.getString(), i);
             }
         }
+        // add dealer cards to the display, first face up, second face down
+        String firstCard = table.getDealer().getHand().get(0).getString();
+        view.addToDealerHand(firstCard);
+        view.addToDealerHand("back_of_card");
     }
 
     public void hit() {

@@ -1,25 +1,26 @@
 package com.game.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Dealer {
-    private ArrayList<Card> hand;
+    private Hand hand;
 
     public Dealer() {
-        hand = new ArrayList<>();
+        hand = new Hand();
     }
 
-    public ArrayList<Card> getHand() {
-        return hand;
+    public List<Card> getHand() {
+        return hand.getCards();
     }
 
     public int getHandTotal() {
+        List<Card> cardsInHand = hand.getCards();
         int total = 0;
-        for (Card card : hand) {
+        for (Card card : cardsInHand) {
             total += card.getValue();
         }
         if (total > 21) {
-            for (Card card : hand) {
+            for (Card card : cardsInHand) {
                 if (card.getRank() == Card.Rank.ACE) {
                     total -= 10;
                 }
@@ -29,7 +30,7 @@ public class Dealer {
     }
 
     public void addCardToHand(Card card) {
-        hand.add(card);
+        hand.getCards().add(card);
     }
 
     public void clearHand() {

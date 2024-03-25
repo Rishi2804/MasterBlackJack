@@ -54,14 +54,14 @@ public class GameView {
     public void addNewPlayerHands() {
         HandView hand = new HandView();
         playerHands.add(hand);
-        root.getChildren().add(hand.getHands().get(0));
+        root.getChildren().add(hand.getHand());
     }
 
-    public void addToHand(String cardName, int playerIndex, int handIndex) {
+    public void addToHand(String cardName, int playerIndex) {
         CardView newCard = new CardView(cardName);
         newCard.getCard().setX(516.0);
         newCard.getCard().setY(461.0);
-        playerHands.get(playerIndex).addToHand(handIndex, newCard);
+        playerHands.get(playerIndex).addToHand(newCard);
     }
 
 }

@@ -33,10 +33,13 @@ public class Table {
     // helper for initial dealing of cards
     private void dealInitialCards() {
         for (Player player : players) {
-            player.clearHands();
-            ArrayList<Card> hand = player.getHand();
+            player.clearHand();
+            List<Card> hand = player.getHand().getCards();
             hand.add(deck.dealCard());
             hand.add(deck.dealCard());
+            if (player.getHandTotal() == 21) {
+                player.getHand().setStatus(Hand.Status.BLACKJACK);
+            }
         }
         dealer.clearHand();
         dealer.addCardToHand(deck.dealCard());
@@ -54,28 +57,28 @@ public class Table {
     }
 
     // Player action: Hit - add card to player hand
-    public Card hit(Player player, int handIndex) {
-        ArrayList<Card> hand = player.getHand(handIndex);
+    public Card hit(Player player) {
+        List<Card> hand = player.getHand().getCards();
         Card card = deck.dealCard();
         hand.add(card);
         return card;
     }
 
     // helper for confirming whether player can split their hand or not
-    public boolean canSplit(Player player) {
-        ArrayList<ArrayList<Card>> hands = player.getHands();
-        return (hands.size() == 1 && hands.get(0).size() == 2 &&
-                hands.get(0).get(0).getRank() == hands.get(0).get(1).getRank());
-    }
-
-    // Player action: Split - splits the player's hand and runs two hands simultaneously
-    public void split(Player player) {
-        if (canSplit(player)) {
-            ArrayList<ArrayList<Card>> hands = player.getHands();
-            ArrayList<Card> newHand = new ArrayList<>();
-            // Remove the second card from the original hand and add it to the new hand
-            newHand.add(hands.get(0).remove(1));
-            hands.add(newHand);
-        }
-    }
+//    public boolean canSplit(Player player) {
+//        ArrayList<ArrayList<Card>> hands = player.getHands();
+//        return (hands.size() == 1 && hands.get(0).size() == 2 &&
+//                hands.get(0).get(0).getRank() == hands.get(0).get(1).getRank());
+//    }
+//
+//    // Player action: Split - splits the player's hand and runs two hands simultaneously
+//    public void split(Player player) {
+//        if (canSplit(player)) {
+//            ArrayList<ArrayList<Card>> hands = player.getHands();
+//            ArrayList<Card> newHand = new ArrayList<>();
+//            // Remove the second card from the original hand and add it to the new hand
+//            newHand.add(hands.get(0).remove(1));
+//            hands.add(newHand);
+//        }
+//    }
 }

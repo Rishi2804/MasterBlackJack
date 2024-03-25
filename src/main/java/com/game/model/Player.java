@@ -1,19 +1,17 @@
 package com.game.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String name;
-    private ArrayList<ArrayList<Card>> hands;
+    private Hand hand;
     private int chips;
     private int bet;
 
     public Player(String name, int chips) {
         this.name = name;
         this.chips = chips;
-        this.hands = new ArrayList<>();
-        this.hands.add(new ArrayList<>());
+        this.hand = new Hand();
     }
 
     public String getName() {
@@ -40,29 +38,22 @@ public class Player {
         chips -= amount;
     }
 
-    public ArrayList<ArrayList<Card>> getHands() {
-        return hands;
+    public Hand getHand() {
+        return hand;
     }
 
-    public ArrayList<Card> getHand() {
-        return hands.get(0);
-    }
-    public ArrayList<Card> getHand(int index) {
-        return hands.get(index);
+    public void addCardToHand(Card card) {
+        hand.getCards().add(card);
     }
 
-    public void addCardToHand(int index, Card card) {
-        hands.get(index).add(card);
-    }
-
-    public int getHandTotal(int index) {
-        ArrayList<Card> hand = getHand(index);
+    public int getHandTotal() {
+        List<Card> cardsInHand = hand.getCards();
         int total = 0;
-        for (Card card : hand) {
+        for (Card card : cardsInHand) {
             total += card.getValue();
         }
         if (total > 21) {
-            for (Card card : hand) {
+            for (Card card : cardsInHand) {
                 if (card.getRank() == Card.Rank.ACE) {
                     total -= 10;
                 }
@@ -71,13 +62,7 @@ public class Player {
         return total;
     }
 
-    public void clearHand(int index) {
-        hands.get(index).clear();
-    }
-
-    public void clearHands() {
-        for (ArrayList<Card> hand : hands) {
-            hand.clear();
-        }
+    public void clearHand() {
+        hand.clear();
     }
 }

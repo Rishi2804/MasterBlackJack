@@ -10,14 +10,12 @@ public class GameController {
     private Table table;
     private GameView view;
     private int playerTurnIndex;
-    private int playerHandIndex;
     private boolean gameInProgress;
 
 
     public void initialize(Stage stage) {
         table = new Table();
         playerTurnIndex = 0;
-        playerHandIndex = 0;
         gameInProgress = false;
         view = new GameView(this);
         view.startupScreen(stage);
@@ -33,15 +31,12 @@ public class GameController {
     public void startGame() {
         table.startGame();
         playerTurnIndex = 0;
-        playerHandIndex = 0;
         gameInProgress = true;
         // add all the intial cards to the display
         for (int i = 0; i < table.getPlayers().size(); i++) {
-            for (int j = 0; j < table.getPlayers().get(i).getHands().size(); j++) {
-                for (int k = 0; k < table.getPlayers().get(i).getHand(j).size(); k++) {
-                    Card card = table.getPlayers().get(i).getHand(j).get(k);
-                    view.addToHand(card.getString(), i, j);
-                }
+            for (int j = 0; j < table.getPlayers().get(i).getHand().getCards().size(); j++) {
+                Card card = table.getPlayers().get(i).getHand().getCards().get(j);
+                view.addToHand(card.getString(), i);
             }
         }
     }
@@ -49,9 +44,9 @@ public class GameController {
     public void hit() {
         if (gameInProgress) {
             Player currentPlayer = table.getPlayers().get(playerTurnIndex);
-            Card card = table.hit(currentPlayer, playerHandIndex);
-            view.addToHand(card.getString(), playerTurnIndex, playerHandIndex);
-            if (currentPlayer.getHandTotal(playerHandIndex) > 21) {
+            Card card = table.hit(currentPlayer);
+            view.addToHand(card.getString(), playerTurnIndex);
+            if (currentPlayer.getHandTotal() > 21) {
                 // BUST
                 nextTurn(currentPlayer);
             }
@@ -64,16 +59,11 @@ public class GameController {
 
     private void nextTurn(Player currentPlayer) {
         if (playerTurnIndex != -1) {
-            playerHandIndex++;
-            if (playerHandIndex + 1 > currentPlayer.getHands().size()) {
-                playerHandIndex = 0;
-                playerTurnIndex++;
-                if (playerTurnIndex + 1 > table.getPlayers().size()) {
-                    // end game
-                    playerTurnIndex = -1;
-                    playerHandIndex = -1;
-                    gameInProgress = false;
-                }
+            playerTurnIndex++;
+            if (playerTurnIndex + 1 > table.getPlayers().size()) {
+                // end game
+                playerTurnIndex = -1;
+                gameInProgress = false;
             }
         }
     }

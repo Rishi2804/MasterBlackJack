@@ -38,15 +38,19 @@ public class GameView {
         background.preserveRatioProperty();
 
         // set buttons
-        Group btngroup = new Group();
+        Group btnGroup = new Group();
+        btnGroup.setLayoutX(890.0);
+        btnGroup.setLayoutY(563.0);
         Button hitBtn = new Button("Hit");
-        hitBtn.setLayoutX(890.0);
-        hitBtn.setLayoutY(563.0);
-        hitBtn.setOnAction(actionEvent -> {gameController.hit();});
-        btngroup.getChildren().add(hitBtn);
+        hitBtn.setOnAction(actionEvent -> gameController.hit());
+        Button standBtn = new Button("Stand");
+        standBtn.setLayoutX(70.0);
+        standBtn.setOnAction(actionEvent -> gameController.stand());
+        btnGroup.getChildren().add(hitBtn);
+        btnGroup.getChildren().add(standBtn);
 
         root.getChildren().add(background);
-        root.getChildren().add(btngroup);
+        root.getChildren().add(btnGroup);
         root.getChildren().add(dealerHand.getHand());
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());

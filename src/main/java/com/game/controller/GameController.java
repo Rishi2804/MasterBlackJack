@@ -53,16 +53,16 @@ public class GameController {
             view.addToHand(card.getString(), playerTurnIndex);
             if (currentPlayer.getHandTotal() > 21) {
                 // BUST
-                nextTurn(currentPlayer);
+                nextTurn();
             }
         }
     }
 
     public void stand() {
-        if (playerTurnIndex != -1) nextTurn(table.getPlayers().get(playerTurnIndex));
+        if (playerTurnIndex != -1) nextTurn();
     }
 
-    private void nextTurn(Player currentPlayer) {
+    private void nextTurn() {
         if (playerTurnIndex != -1) {
             playerTurnIndex++;
             if (playerTurnIndex + 1 > table.getPlayers().size()) {

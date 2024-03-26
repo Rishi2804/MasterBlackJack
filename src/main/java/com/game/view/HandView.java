@@ -7,6 +7,7 @@ import javafx.scene.transform.Rotate;
 
 public class HandView {
     private Group hand;
+    private Label statusLabel;
 
     public enum Position {
         LEFT, LEFTMIDDLE, CENTRE, RIGHTMIDDLE, RIGHT, DEALER;
@@ -58,8 +59,12 @@ public class HandView {
             Label chipsLabel = new Label("Chips: " + chips);
             chipsLabel.setLayoutY(155.0);
             chipsLabel.getStyleClass().add("chips-label");
+            statusLabel = new Label();
+            statusLabel.setLayoutY(-40.0);
+            statusLabel.getStyleClass().add("name-label");
             hand.getChildren().add(nameLabel);
             hand.getChildren().add(chipsLabel);
+            hand.getChildren().add(statusLabel);
         }
 
         hand.getTransforms().add(rotate);
@@ -77,10 +82,13 @@ public class HandView {
         return hand;
     }
 
-
     public void addToHand(CardView card) {
         int numCards = hand.getChildren().filtered(node -> node instanceof ImageView).size();
         card.getCard().setX(numCards * 20);
         hand.getChildren().add(card.getCard());
+    }
+
+    public void setStatusText(String statusText) {
+        statusLabel.setText(statusText);
     }
 }

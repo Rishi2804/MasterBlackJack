@@ -71,6 +71,10 @@ public class Table {
         return card;
     }
 
+    public void stand(Player player) {
+        player.getHand().setStatus(Hand.Status.STOOD);
+    }
+
     // helper for confirming whether player can split their hand or not
 //    public boolean canSplit(Player player) {
 //        ArrayList<ArrayList<Card>> hands = player.getHands();

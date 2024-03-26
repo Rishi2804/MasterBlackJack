@@ -1,6 +1,7 @@
 package com.game.view;
 
 import com.game.controller.GameController;
+import com.game.model.Hand.Status;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -63,6 +64,10 @@ public class GameView {
         HandView hand = new HandView(name, chips, pos);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());
+    }
+
+    public void setHandStatusText(int index, Status status) {
+        if (status != Status.NONE) playerHands.get(index).setStatusText(status.toString());
     }
 
     public void addToHand(String cardName, int playerIndex) {

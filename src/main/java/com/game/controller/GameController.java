@@ -39,6 +39,7 @@ public class GameController {
                 Card card = table.getPlayers().get(i).getHand().getCards().get(j);
                 view.addToHand(card.getString(), i);
             }
+            view.setHandStatusText(playerTurnIndex, table.getPlayers().get(i).getHand().getStatus());
         }
         // add dealer cards to the display, first face up, second face down
         String firstCard = table.getDealer().getHand().get(0).getString();
@@ -52,14 +53,19 @@ public class GameController {
             Card card = table.hit(currentPlayer);
             view.addToHand(card.getString(), playerTurnIndex);
             if (currentPlayer.getHandTotal() > 21) {
-                // BUST
+                view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
                 nextTurn();
             }
         }
     }
 
     public void stand() {
-        if (playerTurnIndex != -1) nextTurn();
+        if (gameInProgress) {
+            Player currentPlayer = table.getPlayers().get(playerTurnIndex);
+            table.stand(currentPlayer);
+            view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
+            nextTurn();
+        }
     }
 
     private void nextTurn() {

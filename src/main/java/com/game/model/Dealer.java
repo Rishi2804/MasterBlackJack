@@ -9,8 +9,8 @@ public class Dealer {
         hand = new Hand();
     }
 
-    public List<Card> getHand() {
-        return hand.getCards();
+    public Hand getHand() {
+        return hand;
     }
 
     public int getHandTotal() {

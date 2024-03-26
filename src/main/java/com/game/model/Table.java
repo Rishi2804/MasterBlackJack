@@ -30,6 +30,9 @@ public class Table {
 
     // start the game
     public void startGame() {
+        for (Player player : players) player.clearHand();
+        dealer.clearHand();
+        deck = new Deck(6);
         deck.shuffle();
         dealInitialCards();
     }
@@ -52,12 +55,17 @@ public class Table {
 
     // Dealer action: play until hand gets to 17
     // TODO: implement learning ai
-    public void dealerPlay() {
+    public Card dealerHit() {
         int handValue = dealer.getHandTotal();
-        while (handValue > 17) {
-            dealer.addCardToHand(deck.dealCard());
-            handValue = dealer.getHandTotal();
+        if (handValue < 17) {
+            Card dealt = deck.dealCard();
+            dealer.addCardToHand(dealt);
+            if (dealer.getHandTotal() > 21) {
+                dealer.getHand().setStatus(Hand.Status.BUST);
+            }
+            return dealt;
         }
+        return null;
     }
 
     // Player action: Hit - add card to player hand
@@ -73,6 +81,13 @@ public class Table {
 
     public void stand(Player player) {
         player.getHand().setStatus(Hand.Status.STOOD);
+    }
+
+    public void endGame() {
+        for (Player player : players) player.clearHand();
+        dealer.clearHand();
+        deck = new Deck(6);
+        players.clear();
     }
 
     // helper for confirming whether player can split their hand or not

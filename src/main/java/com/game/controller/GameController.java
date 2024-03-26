@@ -43,7 +43,7 @@ public class GameController {
             view.setHandStatusText(playerTurnIndex, table.getPlayers().get(i).getHand().getStatus());
         }
         // add dealer cards to the display, first face up, second face down
-        String firstCard = table.getDealer().getHand().get(0).getString();
+        String firstCard = table.getDealer().getHand().getCards().get(0).getString();
         view.addToDealerHand(firstCard);
         view.addToDealerHand("back_of_card");
     }
@@ -51,13 +51,15 @@ public class GameController {
     public void hit() {
         if (gameInProgress) {
             Player currentPlayer = table.getPlayers().get(playerTurnIndex);
-            if (currentPlayer.getHand().getStatus() == Hand.Status.NONE) {
-                Card card = table.hit(currentPlayer);
-                view.addToHand(card.getString(), playerTurnIndex);
-                if (currentPlayer.getHandTotal() > 21) {
-                    view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
-                    nextTurn();
-                }
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BLACKJACK) {
+                nextTurn();
+                hit(); // hit for the next player
+            }
+            Card card = table.hit(currentPlayer);
+            view.addToHand(card.getString(), playerTurnIndex);
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
+                view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
+                nextTurn();
             }
         }
     }
@@ -78,8 +80,21 @@ public class GameController {
                 // end game
                 playerTurnIndex = -1;
                 gameInProgress = false;
+                dealerPlay();
             }
         }
+    }
+
+    private void dealerPlay() {
+        String unveilSecondCard = table.getDealer().getHand().getCards().get(1).getString();
+        view.unveilDealerCard(unveilSecondCard);
+        int handValue = table.getDealer().getHandTotal();
+        while (handValue < 17) {
+            Card newCard = table.dealerHit();
+            view.addToDealerHand(newCard.getString());
+            handValue = table.getDealer().getHandTotal();
+        }
+        view.stopGame();
     }
 
 }

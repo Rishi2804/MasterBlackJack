@@ -1,9 +1,13 @@
 package com.game.view;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
+
+import java.util.Iterator;
 
 public class HandView {
     private Group hand;
@@ -90,5 +94,20 @@ public class HandView {
 
     public void setStatusText(String statusText) {
         statusLabel.setText(statusText);
+    }
+
+    public void clearHand() {
+        // Get the list of children nodes
+        ObservableList<Node> children = hand.getChildren();
+
+        // Iterate through the children and remove ImageView nodes
+        Iterator<Node> iterator = children.iterator();
+        while (iterator.hasNext()) {
+            Node node = iterator.next();
+            if (node instanceof ImageView) {
+                iterator.remove(); // Remove the ImageView
+            }
+        }
+        if (statusLabel != null) statusLabel.setText("");
     }
 }

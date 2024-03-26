@@ -49,7 +49,10 @@ public class GameView {
 
         // start game button
         Button startBtn = new Button("Start Game");
-        startBtn.setOnAction(actionEvent -> gameController.startGame());
+        startBtn.setOnAction(actionEvent -> {
+            clearHands();
+            gameController.startGame();
+        });
 
         // Plyer action buttons
         Button hitBtn = new Button("Hit");
@@ -95,6 +98,22 @@ public class GameView {
         for (Button btn : playerActionButtons) btn.setVisible(true);
     }
 
+    public void stopGame() {
+        Button startBtn = toggleables.stream()
+                .filter(control -> control instanceof Button)
+                .map(control -> (Button) control)
+                .filter(button -> (button.getText() == "Start Game"))
+                .findFirst()
+                .orElse(null);
+        if (startBtn != null) startBtn.setVisible(true);
+        List<Button> playerActionButtons = toggleables.stream()
+                .filter(control -> control instanceof Button)
+                .map(control -> (Button) control)
+                .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
+                .collect(Collectors.toList());
+        for (Button btn : playerActionButtons) btn.setVisible(false);
+    }
+
     public void addNewPlayerHands(String name, String chips, HandView.Position pos) {
         HandView hand = new HandView(name, chips, pos);
         playerHands.add(hand);
@@ -113,6 +132,16 @@ public class GameView {
     public void addToDealerHand(String cardName) {
         CardView newCard = new CardView(cardName);
         dealerHand.addToHand(newCard);
+    }
+
+    public void unveilDealerCard(String cardName) {
+        ImageView image = (ImageView) dealerHand.getHand().getChildren().filtered(node -> node instanceof ImageView).get(1);
+        image.setImage(new Image("/com/game/masterblackjack/images/cards/" + cardName + ".png"));
+    }
+
+    public void clearHands() {
+        for (HandView hand : playerHands) hand.clearHand();
+        dealerHand.clearHand();
     }
 
 }

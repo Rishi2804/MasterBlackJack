@@ -1,7 +1,7 @@
 package com.game.controller;
 
+import com.game.view.HandView.Position;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +21,11 @@ public class StartScreenController {
     public Parent root;
 
     @FXML
+    private TextField nameTextField1;
+    @FXML
     private TextField numericTextField1;
+    @FXML
+    private TextField nameTextField2;
     @FXML
     private TextField numericTextField2;
     @FXML
@@ -29,9 +33,15 @@ public class StartScreenController {
     @FXML
     private TextField numericTextField3;
     @FXML
+    private TextField nameTextField4;
+    @FXML
     private TextField numericTextField4;
     @FXML
+    private TextField nameTextField5;
+    @FXML
     private TextField numericTextField5;
+    List<TextField> nameFields;
+    List<TextField> numericFields;
 
     public void initialize() {
         numericTextField1.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
@@ -39,6 +49,19 @@ public class StartScreenController {
         numericTextField3.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
         numericTextField4.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
         numericTextField5.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
+        numericFields = new ArrayList<>();
+        numericFields.add(numericTextField1);
+        numericFields.add(numericTextField2);
+        numericFields.add(numericTextField3);
+        numericFields.add(numericTextField4);
+        numericFields.add(numericTextField5);
+        nameFields = new ArrayList<>();
+        nameFields.add(nameTextField1);
+        nameFields.add(nameTextField2);
+        nameFields.add(nameTextField3);
+        nameFields.add(nameTextField4);
+        nameFields.add(nameTextField5);
+
     }
 
     public void gameViewSwitcher(ActionEvent e) throws IOException {
@@ -46,12 +69,24 @@ public class StartScreenController {
 
         List<String> names = new ArrayList<>();
         List<String> chips = new ArrayList<>();
-        names.add(nameTextField3.getText());
-        chips.add(numericTextField3.getText());
+        List<Position> positions = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            TextField nameField = nameFields.get(i);
+            TextField numericField = numericFields.get(i);
+            if (!nameField.getText().isBlank() && !numericField.getText().isBlank()) {
+                names.add(nameField.getText());
+                chips.add(numericField.getText());
+                positions.add(Position.values()[i]);
+            }
+        }
 
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        if (names.isEmpty()) {
+            return;
+        }
         gameController.initialize(stage);
-        gameController.addPlayers(names, chips);
+        gameController.addPlayers(names, chips, positions);
         gameController.startGame();
     }
 

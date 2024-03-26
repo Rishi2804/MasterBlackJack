@@ -22,12 +22,12 @@
       <Label alignment="CENTER" layoutX="164.0" layoutY="77.0" prefHeight="53.0" prefWidth="767.0" text="Welcome to MasterBlackjack!" textAlignment="CENTER" />
       <Button layoutX="490.25" layoutY="570.0" mnemonicParsing="false" onAction="#gameViewSwitcher" prefHeight="42.0" prefWidth="134.0" text="Start Game" />
       <Group fx:id="group1">
-         <TextField layoutX="72.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField fx:id="nameTextField1" layoutX="72.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField1" layoutX="72.0" layoutY="265.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
          <ToggleButton layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
-         <TextField layoutX="216.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField fx:id="nameTextField2" layoutX="216.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField2" layoutX="216.0" layoutY="405.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
          <ToggleButton layoutX="244.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
@@ -37,12 +37,12 @@
          <ToggleButton layoutX="496.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
-         <TextField layoutX="706.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField fx:id="nameTextField4" layoutX="706.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField4" layoutX="706.0" layoutY="405.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
          <ToggleButton layoutX="734.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
-         <TextField layoutX="850.5" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
+         <TextField fx:id="nameTextField5" layoutX="850.5" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField5" layoutX="850.5" layoutY="265.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Bet" />
          <ToggleButton layoutX="878.5" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>

@@ -54,8 +54,8 @@ public class GameView {
         stage.show();
     }
 
-    public void addNewPlayerHands() {
-        HandView hand = new HandView(HandView.Position.CENTRE);
+    public void addNewPlayerHands(HandView.Position pos) {
+        HandView hand = new HandView(pos);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());
     }

@@ -2,6 +2,7 @@ package com.game.controller;
 
 import com.game.model.*;
 import com.game.view.GameView;
+import com.game.view.HandView.Position;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -21,10 +22,10 @@ public class GameController {
         view.startupScreen(stage);
     }
 
-    public void addPlayers(List<String> names, List<String> chips) {
+    public void addPlayers(List<String> names, List<String> chips, List<Position> positions) {
         for (int i = 0; i < names.size(); i++) {
             table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)));
-            view.addNewPlayerHands();
+            view.addNewPlayerHands(positions.get(i));
         }
     }
 

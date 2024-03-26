@@ -44,17 +44,15 @@ public class StartScreenController {
     List<TextField> numericFields;
 
     public void initialize() {
-        numericTextField1.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
-        numericTextField2.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
-        numericTextField3.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
-        numericTextField4.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
-        numericTextField5.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
         numericFields = new ArrayList<>();
         numericFields.add(numericTextField1);
         numericFields.add(numericTextField2);
         numericFields.add(numericTextField3);
         numericFields.add(numericTextField4);
         numericFields.add(numericTextField5);
+        for (TextField nf : numericFields) {
+            nf.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
+        }
         nameFields = new ArrayList<>();
         nameFields.add(nameTextField1);
         nameFields.add(nameTextField2);

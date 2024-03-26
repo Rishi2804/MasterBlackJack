@@ -25,7 +25,7 @@ public class GameController {
     public void addPlayers(List<String> names, List<String> chips, List<Position> positions) {
         for (int i = 0; i < names.size(); i++) {
             table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)));
-            view.addNewPlayerHands(positions.get(i));
+            view.addNewPlayerHands(names.get(i), chips.get(i), positions.get(i));
         }
     }
 

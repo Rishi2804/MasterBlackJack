@@ -49,13 +49,14 @@ public class GameView {
         root.getChildren().add(btngroup);
         root.getChildren().add(dealerHand.getHand());
         scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
         this.stage = stage;
         stage.setScene(scene);
         stage.show();
     }
 
-    public void addNewPlayerHands(HandView.Position pos) {
-        HandView hand = new HandView(pos);
+    public void addNewPlayerHands(String name, String chips, HandView.Position pos) {
+        HandView hand = new HandView(name, chips, pos);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());
     }

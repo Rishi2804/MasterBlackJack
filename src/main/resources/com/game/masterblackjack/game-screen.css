@@ -22,3 +22,20 @@
 .button:pressed {
     -fx-background-color: #00CC00; /* Dark green background color when pressed */
 }
+
+.name-label {
+    -fx-text-fill: #FFD700; /* Gold text color */
+    -fx-font-family: "Luckiest Guy", cursive; /* Casino-themed font */
+    -fx-font-size: 20px; /* Font size */
+}
+
+.chips-label {
+     -fx-text-fill: #FFFFFF; /* White text color */
+     -fx-font-family: "Luckiest Guy", cursive; /* Casino-themed font */
+     -fx-font-size: 15px; /* Font size */
+     -fx-background-color: #008000; /* Green background color */
+     -fx-background-radius: 5px;
+     -fx-border-color: #000000; /* Black border color */
+     -fx-border-width: 2px; /* Border width */
+     -fx-border-radius: 5px; /* Border radius */
+ }

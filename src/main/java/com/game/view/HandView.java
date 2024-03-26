@@ -1,6 +1,8 @@
 package com.game.view;
 
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
 public class HandView {
@@ -10,7 +12,7 @@ public class HandView {
         LEFT, LEFTMIDDLE, CENTRE, RIGHTMIDDLE, RIGHT, DEALER;
     }
 
-    HandView(Position pos) {
+    HandView(String name, String chips, Position pos) {
         this.hand = new Group();
         Rotate rotate = new Rotate();
         rotate.setPivotX(0);
@@ -47,7 +49,28 @@ public class HandView {
             default:
                 break;
         }
+
+        // Labels if not dealer
+        if (pos != Position.DEALER) {
+            Label nameLabel = new Label(name);
+            nameLabel.setLayoutY(125.0);
+            nameLabel.getStyleClass().add("name-label");
+            Label chipsLabel = new Label("Chips: " + chips);
+            chipsLabel.setLayoutY(155.0);
+            chipsLabel.getStyleClass().add("chips-label");
+            hand.getChildren().add(nameLabel);
+            hand.getChildren().add(chipsLabel);
+        }
+
         hand.getTransforms().add(rotate);
+    }
+
+    HandView(Position pos) {
+        if (pos == Position.DEALER) {
+            this.hand = new Group();
+            hand.setLayoutX(516.0);
+            hand.setLayoutY(18.0);
+        }
     }
 
     public Group getHand() {
@@ -56,7 +79,7 @@ public class HandView {
 
 
     public void addToHand(CardView card) {
-        int numCards = hand.getChildren().size();
+        int numCards = hand.getChildren().filtered(node -> node instanceof ImageView).size();
         card.getCard().setX(numCards * 20);
         hand.getChildren().add(card.getCard());
     }

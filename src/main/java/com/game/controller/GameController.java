@@ -30,6 +30,7 @@ public class GameController {
     }
 
     public void startGame() {
+        view.startGame();
         table.startGame();
         playerTurnIndex = 0;
         gameInProgress = true;
@@ -50,11 +51,13 @@ public class GameController {
     public void hit() {
         if (gameInProgress) {
             Player currentPlayer = table.getPlayers().get(playerTurnIndex);
-            Card card = table.hit(currentPlayer);
-            view.addToHand(card.getString(), playerTurnIndex);
-            if (currentPlayer.getHandTotal() > 21) {
-                view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
-                nextTurn();
+            if (currentPlayer.getHand().getStatus() == Hand.Status.NONE) {
+                Card card = table.hit(currentPlayer);
+                view.addToHand(card.getString(), playerTurnIndex);
+                if (currentPlayer.getHandTotal() > 21) {
+                    view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
+                    nextTurn();
+                }
             }
         }
     }

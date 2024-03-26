@@ -85,7 +85,6 @@ public class StartScreenController {
         }
         gameController.initialize(stage);
         gameController.addPlayers(names, chips, positions);
-        gameController.startGame();
     }
 
     public void handleNumericInput(KeyEvent event) {

@@ -101,4 +101,16 @@ public class GameController {
         }
     }
 
+    public void endGame() {
+        table.endSession();
+        view.stopGame();
+        view.clearHands();
+        gameInProgress = false;
+        try{
+            view.endGame();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

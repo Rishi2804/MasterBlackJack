@@ -39,3 +39,19 @@
      -fx-border-width: 2px; /* Border width */
      -fx-border-radius: 5px; /* Border radius */
  }
+
+ .text-field {
+     -fx-background-color: #363636; /* Dark background color */
+     -fx-text-fill: white; /* Text color */
+     -fx-font-family: "Arial", sans-serif; /* Font family */
+     -fx-font-size: 14px; /* Font size */
+     -fx-padding: 8px; /* Padding */
+     -fx-border-color: #C5B358; /* Border color */
+     -fx-border-width: 2px; /* Border width */
+     -fx-border-radius: 5px; /* Border radius */
+ }
+
+ .text-field:focused {
+     -fx-border-color: #FFD700; /* Yellow border color when focused */
+     -fx-border-width: 2px; /* Border width */
+ }

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 
@@ -12,6 +13,7 @@ import java.util.Iterator;
 public class HandView {
     private Group hand;
     private Label statusLabel;
+    private TextField betField;
 
     public enum Position {
         LEFT, LEFTMIDDLE, CENTRE, RIGHTMIDDLE, RIGHT, DEALER;
@@ -55,8 +57,9 @@ public class HandView {
                 break;
         }
 
-        // Labels if not dealer
+        // Elements if not dealer
         if (pos != Position.DEALER) {
+            // Labels
             Label nameLabel = new Label(name);
             nameLabel.setLayoutY(125.0);
             nameLabel.getStyleClass().add("name-label");

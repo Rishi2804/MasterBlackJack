@@ -2,7 +2,9 @@ package com.game.view;
 
 import com.game.controller.GameController;
 import com.game.model.Hand.Status;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -11,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,7 +57,7 @@ public class GameView {
             gameController.startGame();
         });
 
-        // Plyer action buttons
+        // Player action buttons
         Button hitBtn = new Button("Hit");
         hitBtn.setOnAction(actionEvent -> gameController.hit());
         hitBtn.setVisible(false);
@@ -72,8 +75,15 @@ public class GameView {
         toggleables.add(standBtn);
         btnGroup.getChildren().add(standBtn);
 
+        // Leave Button
+        Button leaveBtn = new Button("Leave Game");
+        leaveBtn.setLayoutX(50.0);
+        leaveBtn.setLayoutY(50.0);
+        leaveBtn.setOnAction(actionEvent -> gameController.endGame());
+
         root.getChildren().add(background);
         root.getChildren().add(btnGroup);
+        root.getChildren().add(leaveBtn);
         root.getChildren().add(dealerHand.getHand());
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
@@ -142,6 +152,14 @@ public class GameView {
     public void clearHands() {
         for (HandView hand : playerHands) hand.clearHand();
         dealerHand.clearHand();
+    }
+
+    public void endGame() throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/com/game/masterblackjack/start-screen.fxml"));
+        scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/start-screen.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

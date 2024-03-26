@@ -124,7 +124,7 @@ public class HandView {
     }
 
     public int getBetText() {
-        if (!betField.getText().isBlank()) return 0;
+        if (betField.getText().isBlank()) return 0;
         else return Integer.parseInt(betField.getText());
     }
 

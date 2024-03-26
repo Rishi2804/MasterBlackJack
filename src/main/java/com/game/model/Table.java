@@ -91,13 +91,19 @@ public class Table {
             if (player.getHand().getStatus() != Hand.Status.BUST) {
                 if (player.getHandTotal() > dealer.getHandTotal()) {
                     player.getHand().setStatus(Hand.Status.WIN);
+                    player.addChips(player.getBet() * 2);
+                    player.setBet(0);
                 } else if (player.getHandTotal() < dealer.getHandTotal()) {
                     player.getHand().setStatus(Hand.Status.LOSE);
+                    player.setBet(0);
                 } else {
                     player.getHand().setStatus(Hand.Status.PUSH);
+                    player.addChips(player.getBet());
+                    player.setBet(0);
                 }
             } else {
                 player.getHand().setStatus(Hand.Status.LOSE);
+                player.setBet(0);
             }
         }
     }

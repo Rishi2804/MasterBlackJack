@@ -30,6 +30,17 @@ public class GameController {
     }
 
     public void startGame() {
+        for (int i = 0; i < table.getPlayers().size(); i++) {
+            int bet = view.getPlayerHands().get(i).getBetText();
+            if (bet == 0) return;
+            Player player = table.getPlayers().get(i);
+            int chips = player.getChips();
+            if (bet > chips) return;
+            player.setBet(bet);
+            player.removeChips(bet);
+            chips = player.getChips();
+            view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
+        }
         view.startGame();
         table.startGame();
         playerTurnIndex = 0;
@@ -98,6 +109,8 @@ public class GameController {
         table.calculateWin();
         for (int i = 0; i < table.getPlayers().size(); i++) {
             view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
+            int chips = table.getPlayers().get(i).getChips();
+            view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
         }
     }
 

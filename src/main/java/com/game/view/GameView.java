@@ -34,6 +34,10 @@ public class GameView {
         this.toggleables = new ArrayList<>();
     }
 
+    public List<HandView> getPlayerHands() {
+        return playerHands;
+    }
+
     public void startupScreen(Stage stage) {
         // set background
         root = new AnchorPane();

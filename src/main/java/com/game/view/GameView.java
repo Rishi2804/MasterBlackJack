@@ -106,6 +106,7 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(true);
+        for (HandView hand : playerHands) hand.setBetFieldVisible(false);
     }
 
     public void stopGame() {
@@ -122,6 +123,7 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(false);
+        for (HandView hand : playerHands) hand.setBetFieldVisible(true);
     }
 
     public void addNewPlayerHands(String name, String chips, HandView.Position pos) {

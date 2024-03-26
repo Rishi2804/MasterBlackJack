@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Rotate;
 
 import java.util.Iterator;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 public class HandView {
     private Group hand;
     private Label statusLabel;
+    private Label chipsLabel;
     private TextField betField;
 
     public enum Position {
@@ -63,7 +65,7 @@ public class HandView {
             Label nameLabel = new Label(name);
             nameLabel.setLayoutY(125.0);
             nameLabel.getStyleClass().add("name-label");
-            Label chipsLabel = new Label("Chips: " + chips);
+            chipsLabel = new Label("Chips: " + chips);
             chipsLabel.setLayoutY(155.0);
             chipsLabel.getStyleClass().add("chips-label");
             statusLabel = new Label();
@@ -72,6 +74,13 @@ public class HandView {
             hand.getChildren().add(nameLabel);
             hand.getChildren().add(chipsLabel);
             hand.getChildren().add(statusLabel);
+
+            // add bet text field
+            betField = new TextField();
+            betField.setPromptText("Enter Bet");
+            betField.setLayoutY(30.0);
+            betField.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
+            hand.getChildren().add(betField);
         }
 
         hand.getTransforms().add(rotate);
@@ -113,4 +122,31 @@ public class HandView {
         }
         if (statusLabel != null) statusLabel.setText("");
     }
+
+    public int getBetText() {
+        if (!betField.getText().isBlank()) return 0;
+        else return Integer.parseInt(betField.getText());
+    }
+
+    public void setBetFieldVisible(boolean visible) {
+        betField.setVisible(visible);
+        if (visible) betField.toFront();
+        else betField.setText("");
+    }
+
+    public void setNewChipsText(String chips) {
+        chipsLabel.setText("Chips: " + chips);
+    }
+
+    public void handleNumericInput(KeyEvent event) {
+        String input = event.getCharacter();
+        if (!isNumeric(input)) {
+            event.consume();
+        }
+    }
+
+    private boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  // Matches numeric input including negative numbers and decimals
+    }
+
 }

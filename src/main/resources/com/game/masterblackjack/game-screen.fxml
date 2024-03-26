@@ -13,13 +13,22 @@
                 <Image url="@images/blackjack_table.JPG" />
             </image>
         </ImageView>
-      <ImageView fitHeight="121.0" fitWidth="84.0" layoutX="516.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/cards/2_of_spades.png" />
-         </image>
-      </ImageView>
         <Group>
             <Button layoutX="890.0" layoutY="563.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="70.0" text="Hit" />
         </Group>
+      <Group layoutX="516.0" layoutY="461.0">
+         <children>
+            <ImageView fitHeight="121.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cards/2_of_spades.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="121.0" fitWidth="84.0" layoutX="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cards/2_of_spades.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Group>
     </children>
 </AnchorPane>

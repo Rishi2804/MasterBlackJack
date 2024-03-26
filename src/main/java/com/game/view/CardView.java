@@ -13,8 +13,6 @@ public class CardView {
         card.preserveRatioProperty();
         card.setFitHeight(121.0);
         card.setFitWidth(84.0);
-        card.setX(516.0);
-        card.setY(461.0);
     }
 
     public ImageView getCard() {

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class GameView {
     public GameView(GameController gc) {
         this.gameController = gc;
         this.playerHands = new ArrayList<>();
-        this.dealerHand = new HandView();
+        this.dealerHand = new HandView(HandView.Position.DEALER);
     }
 
     public void startupScreen(Stage stage) {
@@ -55,22 +56,19 @@ public class GameView {
     }
 
     public void addNewPlayerHands() {
-        HandView hand = new HandView();
+        //HandView hand = new HandView(516.0, 461.0);
+        HandView hand = new HandView(HandView.Position.CENTRE);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());
     }
 
     public void addToHand(String cardName, int playerIndex) {
         CardView newCard = new CardView(cardName);
-        newCard.getCard().setX(516.0);
-        newCard.getCard().setY(461.0);
         playerHands.get(playerIndex).addToHand(newCard);
     }
 
     public void addToDealerHand(String cardName) {
         CardView newCard = new CardView(cardName);
-        newCard.getCard().setX(516.0);
-        newCard.getCard().setY(18.0);
         dealerHand.addToHand(newCard);
     }
 

@@ -70,23 +70,41 @@ public class Table {
 
     // Player action: Hit - add card to player hand
     public Card hit(Player player) {
-        List<Card> hand = player.getHand().getCards();
-        Card card = deck.dealCard();
-        hand.add(card);
-        if (player.getHandTotal() > 21) {
-            player.getHand().setStatus(Hand.Status.BUST);
+        if (player.getHand().getStatus() != Hand.Status.BLACKJACK) {
+            List<Card> hand = player.getHand().getCards();
+            Card card = deck.dealCard();
+            hand.add(card);
+            if (player.getHandTotal() > 21) {
+                player.getHand().setStatus(Hand.Status.BUST);
+            }
+            return card;
         }
-        return card;
+        return null;
     }
 
     public void stand(Player player) {
         player.getHand().setStatus(Hand.Status.STOOD);
     }
 
-    public void endGame() {
+    public void calculateWin() {
+        for (Player player : players) {
+            if (player.getHand().getStatus() != Hand.Status.BUST) {
+                if (player.getHandTotal() > dealer.getHandTotal()) {
+                    player.getHand().setStatus(Hand.Status.WIN);
+                } else if (player.getHandTotal() < dealer.getHandTotal()) {
+                    player.getHand().setStatus(Hand.Status.LOSE);
+                } else {
+                    player.getHand().setStatus(Hand.Status.PUSH);
+                }
+            } else {
+                player.getHand().setStatus(Hand.Status.LOSE);
+            }
+        }
+    }
+
+    public void endSession() {
         for (Player player : players) player.clearHand();
         dealer.clearHand();
-        deck = new Deck(6);
         players.clear();
     }
 

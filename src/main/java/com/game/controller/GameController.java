@@ -40,7 +40,7 @@ public class GameController {
                 Card card = table.getPlayers().get(i).getHand().getCards().get(j);
                 view.addToHand(card.getString(), i);
             }
-            view.setHandStatusText(playerTurnIndex, table.getPlayers().get(i).getHand().getStatus());
+            view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
         }
         // add dealer cards to the display, first face up, second face down
         String firstCard = table.getDealer().getHand().getCards().get(0).getString();
@@ -95,6 +95,10 @@ public class GameController {
             handValue = table.getDealer().getHandTotal();
         }
         view.stopGame();
+        table.calculateWin();
+        for (int i = 0; i < table.getPlayers().size(); i++) {
+            view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
+        }
     }
 
 }

@@ -42,9 +42,7 @@ public class StartScreenController {
     }
 
     public void gameViewSwitcher(ActionEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/game/masterblackjack/game-screen.fxml"));
-        root = loader.load();
-        GameController gameController = loader.getController();
+        GameController gameController = new GameController();
 
         List<String> names = new ArrayList<>();
         List<String> chips = new ArrayList<>();
@@ -58,7 +56,6 @@ public class StartScreenController {
     }
 
     public void handleNumericInput(KeyEvent event) {
-        TextField source = (TextField) event.getSource();
         String input = event.getCharacter();
         if (!isNumeric(input)) {
             event.consume();

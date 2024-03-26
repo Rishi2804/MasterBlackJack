@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -56,7 +55,6 @@ public class GameView {
     }
 
     public void addNewPlayerHands() {
-        //HandView hand = new HandView(516.0, 461.0);
         HandView hand = new HandView(HandView.Position.CENTRE);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());

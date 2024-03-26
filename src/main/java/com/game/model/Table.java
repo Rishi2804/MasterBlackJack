@@ -65,6 +65,9 @@ public class Table {
         List<Card> hand = player.getHand().getCards();
         Card card = deck.dealCard();
         hand.add(card);
+        if (player.getHandTotal() > 21) {
+            player.getHand().setStatus(Hand.Status.BUST);
+        }
         return card;
     }
 

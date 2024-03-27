@@ -31,10 +31,17 @@ public class GameController {
 
     public void startGame() {
         for (int i = 0; i < table.getPlayers().size(); i++) {
-            int bet = view.getPlayerHands().get(i).getBetText();
+            int bet = view.getPlayerHands().get(i).getFieldText(true);
             if (bet == 0) return;
             Player player = table.getPlayers().get(i);
             int chips = player.getChips();
+            if (chips == 0) {
+                int newChips = view.getPlayerHands().get(i).getFieldText(false);
+                if (newChips == 0) return;
+                view.getPlayerHands().get(i).setFieldVisible(false, false);
+                player.addChips(newChips);
+                chips = newChips;
+            }
             if (bet > chips) return;
             player.setBet(bet);
             player.removeChips(bet);
@@ -111,6 +118,9 @@ public class GameController {
             int chips = table.getPlayers().get(i).getChips();
             view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
             view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
+            if (chips == 0) {
+                view.getPlayerHands().get(i).setFieldVisible(false, true);
+            }
         }
     }
 

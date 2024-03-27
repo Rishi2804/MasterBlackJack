@@ -4,7 +4,6 @@ import com.game.controller.GameController;
 import com.game.model.Hand.Status;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -110,7 +109,7 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(true);
-        for (HandView hand : playerHands) hand.setBetFieldVisible(false);
+        for (HandView hand : playerHands) hand.setFieldVisible(true, false);
     }
 
     public void stopGame() {
@@ -127,7 +126,7 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(false);
-        for (HandView hand : playerHands) hand.setBetFieldVisible(true);
+        for (HandView hand : playerHands) hand.setFieldVisible(true, true);
     }
 
     public void addNewPlayerHands(String name, String chips, HandView.Position pos) {

@@ -16,6 +16,7 @@ public class HandView {
     private Label statusLabel;
     private Label chipsLabel;
     private TextField betField;
+    private TextField chipsField;
 
     public enum Position {
         LEFT, LEFTMIDDLE, CENTRE, RIGHTMIDDLE, RIGHT, DEALER;
@@ -78,9 +79,16 @@ public class HandView {
             // add bet text field
             betField = new TextField();
             betField.setPromptText("Enter Bet");
-            betField.setLayoutY(30.0);
+            betField.setLayoutY(35.0);
             betField.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
             hand.getChildren().add(betField);
+
+            // add chips text field
+            chipsField = new TextField();
+            chipsField.setPromptText("Enter Chips");
+            chipsField.setVisible(false);
+            chipsField.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
+            hand.getChildren().add(chipsField);
         }
 
         hand.getTransforms().add(rotate);
@@ -123,15 +131,27 @@ public class HandView {
         if (statusLabel != null) statusLabel.setText("");
     }
 
-    public int getBetText() {
-        if (betField.getText().isBlank()) return 0;
-        else return Integer.parseInt(betField.getText());
+    public int getFieldText(boolean bet) {
+        TextField field;
+        if (bet) {
+            field = betField;
+        } else {
+            field = chipsField;
+        }
+        if (field.getText().isBlank()) return 0;
+        else return Integer.parseInt(field.getText());
     }
 
-    public void setBetFieldVisible(boolean visible) {
-        betField.setVisible(visible);
-        if (visible) betField.toFront();
-        else betField.setText("");
+    public void setFieldVisible(boolean bet, boolean visible) {
+        TextField field;
+        if (bet) {
+            field = betField;
+        } else {
+            field = chipsField;
+        }
+        field.setVisible(visible);
+        if (visible) field.toFront();
+        else field.setText("");
     }
 
     public void setNewChipsText(String chips) {

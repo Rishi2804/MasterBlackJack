@@ -108,9 +108,9 @@ public class GameController {
         view.stopGame();
         table.calculateWin();
         for (int i = 0; i < table.getPlayers().size(); i++) {
-            view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
             int chips = table.getPlayers().get(i).getChips();
             view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
+            view.setHandStatusText(i, table.getPlayers().get(i).getHand().getStatus());
         }
     }
 

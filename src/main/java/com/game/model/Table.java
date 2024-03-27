@@ -41,9 +41,8 @@ public class Table {
     private void dealInitialCards() {
         for (Player player : players) {
             player.clearHand();
-            List<Card> hand = player.getHand().getCards();
-            hand.add(deck.dealCard());
-            hand.add(deck.dealCard());
+            player.addCardToHand(deck.dealCard());
+            player.addCardToHand(deck.dealCard());
             if (player.getHandTotal() == 21) {
                 player.getHand().setStatus(Hand.Status.BLACKJACK);
             }
@@ -71,9 +70,8 @@ public class Table {
     // Player action: Hit - add card to player hand
     public Card hit(Player player) {
         if (player.getHand().getStatus() != Hand.Status.BLACKJACK) {
-            List<Card> hand = player.getHand().getCards();
             Card card = deck.dealCard();
-            hand.add(card);
+            player.addCardToHand(card);
             if (player.getHandTotal() > 21) {
                 player.getHand().setStatus(Hand.Status.BUST);
             }
@@ -89,6 +87,12 @@ public class Table {
     public void calculateWin() {
         for (Player player : players) {
             if (player.getHand().getStatus() != Hand.Status.BUST) {
+                if (dealer.getHand().getStatus() == Hand.Status.BUST) {
+                    player.getHand().setStatus(Hand.Status.WIN);
+                    player.addChips(player.getBet() * 2);
+                    player.setBet(0);
+                    return;
+                }
                 if (player.getHandTotal() > dealer.getHandTotal()) {
                     player.getHand().setStatus(Hand.Status.WIN);
                     player.addChips(player.getBet() * 2);

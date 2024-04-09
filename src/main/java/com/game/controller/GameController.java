@@ -2,6 +2,7 @@ package com.game.controller;
 
 import com.game.model.*;
 import com.game.view.GameView;
+import com.game.view.HandView;
 import com.game.view.HandView.Position;
 import javafx.stage.Stage;
 
@@ -26,6 +27,16 @@ public class GameController {
         for (int i = 0; i < names.size(); i++) {
             table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)));
             view.addNewPlayerHands(names.get(i), chips.get(i), positions.get(i));
+        }
+    }
+
+    public void removePlayers(HandView hand) {
+        if (view.getPlayerHands().size() > 1) {
+            int index = view.getPlayerHands().indexOf(hand);
+            table.removePlayer(index);
+            view.removePlayerHand(index);
+        } else {
+            endGame();
         }
     }
 

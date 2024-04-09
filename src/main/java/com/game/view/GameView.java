@@ -109,7 +109,10 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(true);
-        for (HandView hand : playerHands) hand.setFieldVisible(true, false);
+        for (HandView hand : playerHands) {
+            hand.setFieldVisible(true, false);
+            hand.setBtnVisable(false);
+        }
     }
 
     public void stopGame() {
@@ -126,13 +129,23 @@ public class GameView {
                 .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(false);
-        for (HandView hand : playerHands) hand.setFieldVisible(true, true);
+        for (HandView hand : playerHands) {
+            hand.setFieldVisible(true, true);
+            hand.setBtnVisable(true);
+        }
     }
 
     public void addNewPlayerHands(String name, String chips, HandView.Position pos) {
-        HandView hand = new HandView(name, chips, pos);
+        HandView hand = new HandView(name, chips, pos, gameController::removePlayers);
         playerHands.add(hand);
         root.getChildren().add(hand.getHand());
+    }
+
+    public void removePlayerHand(int index) {
+        if (playerHands.size() > 1) {
+            root.getChildren().remove(playerHands.get(index).getHand());
+            playerHands.remove(index);
+        }
     }
 
     public void setHandStatusText(int index, Status status) {

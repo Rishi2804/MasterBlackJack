@@ -3,6 +3,7 @@ package com.game.view;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -17,12 +18,19 @@ public class HandView {
     private Label chipsLabel;
     private TextField betField;
     private TextField chipsField;
+    private Button leaveGameBtn;
 
     public enum Position {
         LEFT, LEFTMIDDLE, CENTRE, RIGHTMIDDLE, RIGHT, DEALER;
     }
 
-    HandView(String name, String chips, Position pos) {
+    // Function Interface
+    @FunctionalInterface
+    interface functionConsumer {
+        void removePlayers(HandView handView);
+    }
+
+    HandView(String name, String chips, Position pos, functionConsumer removeFnc) {
         this.hand = new Group();
         Rotate rotate = new Rotate();
         rotate.setPivotX(0);
@@ -89,6 +97,14 @@ public class HandView {
             chipsField.setVisible(false);
             chipsField.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
             hand.getChildren().add(chipsField);
+
+            // add leave button
+            leaveGameBtn = new Button("Quit");
+            leaveGameBtn.setLayoutY(70.0);
+            leaveGameBtn.setId("leave-btn");
+            leaveGameBtn.setOnAction(event -> removeFnc.removePlayers(this));
+            leaveGameBtn.setVisible(false);
+            hand.getChildren().add(leaveGameBtn);
         }
 
         hand.getTransforms().add(rotate);
@@ -152,6 +168,11 @@ public class HandView {
         field.setVisible(visible);
         if (visible) field.toFront();
         else field.setText("");
+    }
+
+    public void setBtnVisable(boolean visible) {
+        leaveGameBtn.setVisible(visible);
+        if (visible) leaveGameBtn.toFront();
     }
 
     public void setNewChipsText(String chips) {

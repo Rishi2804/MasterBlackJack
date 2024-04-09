@@ -55,3 +55,13 @@
      -fx-border-color: #FFD700; /* Yellow border color when focused */
      -fx-border-width: 2px; /* Border width */
  }
+
+ #leave-btn {
+     -fx-background-color: #FFD700; /* Gold background color */
+     -fx-font-family: "Arial", sans-serif; /* Font family */
+     -fx-border-color: #C5B358; /* Border color */
+     -fx-border-width: 2px; /* Border width */
+     -fx-border-radius: 5px; /* Border radius */
+     -fx-background-radius: 5px; /* Background radius */
+     -fx-cursor: hand; /* Cursor on hover */
+ }

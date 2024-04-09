@@ -28,6 +28,10 @@ public class Table {
         players.add(player);
     }
 
+    public void removePlayer(int index) {
+        players.remove(index);
+    }
+
     // start the game
     public void startGame() {
         for (Player player : players) player.clearHand();
@@ -91,7 +95,7 @@ public class Table {
                     player.getHand().setStatus(Hand.Status.WIN);
                     player.addChips(player.getBet() * 2);
                     player.setBet(0);
-                    return;
+                    continue;
                 }
                 if (player.getHandTotal() > dealer.getHandTotal()) {
                     player.getHand().setStatus(Hand.Status.WIN);

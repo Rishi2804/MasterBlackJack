@@ -40,8 +40,20 @@ public class StartScreenController {
     private TextField nameTextField5;
     @FXML
     private TextField numericTextField5;
+    @FXML
+    private ToggleButton toggleButton1;
+    @FXML
+    private ToggleButton toggleButton2;
+    @FXML
+    private ToggleButton toggleButton3;
+    @FXML
+    private ToggleButton toggleButton4;
+    @FXML
+    private ToggleButton toggleButton5;
     List<TextField> nameFields;
     List<TextField> numericFields;
+    List<ToggleButton> toggleButtons;
+    List<Number> aiIndecies = new ArrayList<>();
 
     public void initialize() {
         numericFields = new ArrayList<>();
@@ -53,6 +65,7 @@ public class StartScreenController {
         for (TextField nf : numericFields) {
             nf.addEventFilter(KeyEvent.KEY_TYPED, this::handleNumericInput);
         }
+
         nameFields = new ArrayList<>();
         nameFields.add(nameTextField1);
         nameFields.add(nameTextField2);
@@ -60,6 +73,24 @@ public class StartScreenController {
         nameFields.add(nameTextField4);
         nameFields.add(nameTextField5);
 
+        toggleButtons = new ArrayList<>();
+        toggleButtons.add(toggleButton1);
+        toggleButtons.add(toggleButton2);
+        toggleButtons.add(toggleButton3);
+        toggleButtons.add(toggleButton4);
+        toggleButtons.add(toggleButton5);
+        for (ToggleButton tb : toggleButtons) {
+            tb.setOnAction(actionEvent -> {
+                int num = toggleButtons.indexOf(tb);
+                if (tb.isSelected()) {
+                    System.out.println("Toggle button is selected");
+                    aiIndecies.add(num);
+                } else {
+                    System.out.println("Toggle button is deselected");
+                    aiIndecies.remove(Integer.valueOf(num));
+                }
+            });
+        }
     }
 
     public void gameViewSwitcher(ActionEvent e) throws IOException {
@@ -68,6 +99,11 @@ public class StartScreenController {
         List<String> names = new ArrayList<>();
         List<String> chips = new ArrayList<>();
         List<Position> positions = new ArrayList<>();
+        List<Boolean> playerType = new ArrayList<>();
+
+        for (Number b : aiIndecies) {
+            System.out.println(b);
+        }
 
         for (int i = 0; i < 5; i++) {
             TextField nameField = nameFields.get(i);
@@ -76,6 +112,7 @@ public class StartScreenController {
                 names.add(nameField.getText());
                 chips.add(numericField.getText());
                 positions.add(Position.values()[i]);
+                playerType.add(!aiIndecies.contains(Integer.valueOf(i)));
             }
         }
 
@@ -84,7 +121,7 @@ public class StartScreenController {
             return;
         }
         gameController.initialize(stage);
-        gameController.addPlayers(names, chips, positions);
+        gameController.addPlayers(names, chips, positions, playerType);
     }
 
     public void handleNumericInput(KeyEvent event) {

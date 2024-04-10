@@ -23,8 +23,13 @@ public class Table {
     }
 
     // add player to the game
-    public void addPlayer(String playerName, int playerChips) {
-        Player player = new Player(playerName, playerChips);
+    public void addPlayer(String playerName, int playerChips, boolean human) {
+        Player player;
+        if (human) {
+            player = new Player(playerName, playerChips);
+        } else {
+            player = new AIPlayer(playerName, playerChips);
+        }
         players.add(player);
     }
 

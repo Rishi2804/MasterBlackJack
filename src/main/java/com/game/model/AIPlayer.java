@@ -1,7 +1,5 @@
 package com.game.model;
 
-import com.game.controller.GameController;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -10,7 +8,6 @@ public class AIPlayer extends Player {
     private static final double LEARNING_RATE = 0.1;
     private static final double DISCOUNT_FACTOR = 0.9;
     private static final double EXPLORATION_RATE = 0.1;
-    private GameController gameController;
 
     private enum Action {
         HIT,
@@ -19,29 +16,22 @@ public class AIPlayer extends Player {
 
     private Map<StateActionPair, Double> qTable;
 
-    public AIPlayer(String name, int chips, GameController gc) {
+    public AIPlayer(String name, int chips) {
         super(name, chips);
-        this.gameController = gc;
         qTable = new HashMap<>();
     }
 
-    public String play(Table table) {
-        // Implement learning AI logic here
+    public String generateMove(Table table) {
         State currentState = getState(table);
         Action action = chooseAction(currentState);
+        return action.toString();
+    }
 
-        // Perform the chosen action
-        if (action == Action.HIT) {
-            gameController.hit();
-        } else if (action == Action.STAND) {
-            gameController.stand();
-        }
-
-        // Learn from the action taken
+    public void updateQValueAfterMove(String action, Table table) {
+        State currentState = getState(table);
         State nextState = getState(table);
         double reward = calculateReward(table);
-        updateQValue(currentState, action, nextState, reward);
-        return action.toString();
+        updateQValue(currentState, Action.valueOf(action), nextState, reward);
     }
 
     private State getState(Table table) {
@@ -61,6 +51,11 @@ public class AIPlayer extends Player {
             // Exploit: choose action with highest Q-value for the current state
             double hitValue = qTable.getOrDefault(new StateActionPair(state, Action.HIT), 0.0);
             double standValue = qTable.getOrDefault(new StateActionPair(state, Action.STAND), 0.0);
+
+            if (hitValue == 0.0 && standValue == 0.0) {
+                return (state.playerHandTotal < 17) ? Action.HIT : Action.STAND;
+            }
+
             return (hitValue > standValue) ? Action.HIT : Action.STAND;
         }
     }

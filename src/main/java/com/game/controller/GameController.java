@@ -191,6 +191,13 @@ public class GameController {
     }
 
     public void endGame() {
+        for (Player player : table.getPlayers()) {
+            if (player instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) player;
+                temp.saveQTable("qtable.dat");
+                break;
+            }
+        }
         table.endSession();
         view.stopGame();
         view.clearHands();

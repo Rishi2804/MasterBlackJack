@@ -1,8 +1,8 @@
 package com.game.model;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class AIPlayer extends Player {
     private static final double LEARNING_RATE = 0.1;
@@ -18,6 +18,8 @@ public class AIPlayer extends Player {
     public AIPlayer(String name, int chips) {
         super(name, chips);
         qTable = new HashMap<>();
+        HashMap<StateActionPair, Double> loadTable = loadQTable("qtable.dat");
+        if (loadTable != null) qTable = loadTable;
     }
 
     public String generateMove(Table table) {
@@ -76,8 +78,28 @@ public class AIPlayer extends Player {
         qTable.put(new StateActionPair(currentState, action), updatedQValue);
     }
 
+    public void saveQTable(String filename) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(qTable);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public HashMap<StateActionPair, Double> loadQTable(String filename) {
+        HashMap<StateActionPair, Double> table = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            table = (HashMap<StateActionPair, Double>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return table;
+    }
+
     // Define a class to represent states of the game
-    private static class State {
+    private static class State implements Serializable {
         private int playerHandTotal;
         private int dealerVisibleCardValue;
 
@@ -102,7 +124,7 @@ public class AIPlayer extends Player {
     }
 
     // Define a class to represent state-action pairs
-    private static class StateActionPair {
+    private static class StateActionPair implements Serializable {
         private State state;
         private Action action;
 

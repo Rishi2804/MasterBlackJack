@@ -69,6 +69,11 @@ public class GameView {
         standBtn.setId("stand-button");
         standBtn.setVisible(false);
         standBtn.setOnAction(actionEvent -> gameController.stand());
+        Button doubleDownBtn = new Button("Double Down");
+        doubleDownBtn.setLayoutY(-50.0);
+        doubleDownBtn.setId("double-down-button");
+        doubleDownBtn.setVisible(false);
+        doubleDownBtn.setOnAction(actionEvent -> gameController.doubleDown());
 
         // add buttons
         toggleables.add(startBtn);
@@ -77,6 +82,8 @@ public class GameView {
         btnGroup.getChildren().add(hitBtn);
         toggleables.add(standBtn);
         btnGroup.getChildren().add(standBtn);
+        toggleables.add(doubleDownBtn);
+        btnGroup.getChildren().add(doubleDownBtn);
 
         // Leave Button
         Button leaveBtn = new Button("Leave Game");
@@ -95,7 +102,7 @@ public class GameView {
         stage.show();
     }
 
-    public void startGame() {
+    public void startGame(boolean showDoubleDown) {
         Button startBtn = toggleables.stream()
                     .filter(control -> control instanceof Button)
                     .map(control -> (Button) control)
@@ -106,13 +113,29 @@ public class GameView {
         List<Button> playerActionButtons = toggleables.stream()
                 .filter(control -> control instanceof Button)
                 .map(control -> (Button) control)
-                .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
+                .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand" || button.getText() == "Double Down"))
                 .collect(Collectors.toList());
-        for (Button btn : playerActionButtons) btn.setVisible(true);
+        for (Button btn : playerActionButtons) {
+            if (btn.getText() == "Double Down") {
+                btn.setVisible(showDoubleDown);
+                continue;
+            }
+            btn.setVisible(true);
+        }
         for (HandView hand : playerHands) {
             hand.setFieldVisible(true, false);
             hand.setBtnVisable(false);
         }
+    }
+
+    public void toggleableChange(String btnText, boolean val) {
+        Button btn = toggleables.stream()
+                .filter(control -> control instanceof Button)
+                .map(control -> (Button) control)
+                .filter(button -> (button.getText() == btnText))
+                .findFirst()
+                .orElse(null);
+        btn.setVisible(val);
     }
 
     public void stopGame() {
@@ -126,7 +149,7 @@ public class GameView {
         List<Button> playerActionButtons = toggleables.stream()
                 .filter(control -> control instanceof Button)
                 .map(control -> (Button) control)
-                .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand"))
+                .filter(button -> (button.getText() == "Hit" || button.getText() == "Stand" || button.getText() == "Double Down"))
                 .collect(Collectors.toList());
         for (Button btn : playerActionButtons) btn.setVisible(false);
         for (HandView hand : playerHands) {

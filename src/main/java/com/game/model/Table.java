@@ -83,6 +83,16 @@ public class Table {
         }
         return null;
     }
+    public Card doubleDown(Player player) {
+        int bet = player.getBet();
+        if (player.getChips() >= bet) {
+            player.removeChips(bet);
+            player.setBet(bet * 2);
+            Card card = hit(player);
+            return card;
+        }
+        return null;
+    }
 
     public void stand(Player player) {
         player.getHand().setStatus(Hand.Status.STOOD);

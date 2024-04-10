@@ -42,6 +42,10 @@ public class Player {
         return hand;
     }
 
+    public boolean canDoubleDown() {
+        return (chips >= bet);
+    }
+
     public void addCardToHand(Card card) {
         hand.getCards().add(card);
     }

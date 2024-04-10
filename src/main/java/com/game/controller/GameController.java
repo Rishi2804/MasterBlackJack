@@ -59,9 +59,10 @@ public class GameController {
             chips = player.getChips();
             view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
         }
-        view.startGame();
-        table.startGame();
         playerTurnIndex = 0;
+        boolean showDoubleDown = table.getPlayers().get(playerTurnIndex).canDoubleDown();
+        view.startGame(showDoubleDown);
+        table.startGame();
         gameInProgress = true;
         // add all the intial player cards to the display
         for (int i = 0; i < table.getPlayers().size(); i++) {
@@ -89,7 +90,26 @@ public class GameController {
             if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
                 view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
                 nextTurn();
+            } else {
+                view.toggleableChange("Double Down", false);
             }
+        }
+    }
+
+    public void doubleDown() {
+        Player currentPlayer = table.getPlayers().get(playerTurnIndex);
+        if (gameInProgress && currentPlayer.canDoubleDown()) {
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BLACKJACK) {
+                nextTurn();
+                doubleDown(); // doubledown for the next player
+            }
+            Card card = table.doubleDown(currentPlayer);
+            view.addToHand(card.getString(), playerTurnIndex);
+            view.getPlayerHands().get(playerTurnIndex).setNewChipsText(String.valueOf(currentPlayer.getChips()));
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
+                view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
+            }
+            nextTurn();
         }
     }
 
@@ -110,6 +130,9 @@ public class GameController {
                 playerTurnIndex = -1;
                 gameInProgress = false;
                 dealerPlay();
+            } else {
+                boolean doubledown = table.getPlayers().get(playerTurnIndex).canDoubleDown();
+                view.toggleableChange("Double Down", doubledown);
             }
         }
     }

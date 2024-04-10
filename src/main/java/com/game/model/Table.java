@@ -60,7 +60,6 @@ public class Table {
     }
 
     // Dealer action: play until hand gets to 17
-    // TODO: implement learning ai
     public Card dealerHit() {
         int handValue = dealer.getHandTotal();
         if (handValue < 17) {

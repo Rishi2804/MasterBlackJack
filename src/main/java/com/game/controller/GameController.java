@@ -76,6 +76,9 @@ public class GameController {
         String firstCard = table.getDealer().getHand().getCards().get(0).getString();
         view.addToDealerHand(firstCard);
         view.addToDealerHand("back_of_card");
+        if (table.getPlayers().get(0).getHand().getStatus() == Hand.Status.BLACKJACK) {
+            nextTurn();
+        }
     }
 
     public void hit() {
@@ -130,6 +133,8 @@ public class GameController {
                 playerTurnIndex = -1;
                 gameInProgress = false;
                 dealerPlay();
+            } else if (table.getPlayers().get(playerTurnIndex).getHand().getStatus() == Hand.Status.BLACKJACK) {
+                nextTurn();
             } else {
                 boolean doubledown = table.getPlayers().get(playerTurnIndex).canDoubleDown();
                 view.toggleableChange("Double Down", doubledown);

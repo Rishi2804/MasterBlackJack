@@ -24,27 +24,27 @@
       <Group fx:id="group1">
          <TextField fx:id="nameTextField1" layoutX="72.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField1" layoutX="72.0" layoutY="265.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Chips" />
-         <ToggleButton layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
+         <ToggleButton fx:id="toggleButton1" layoutX="100.0" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
          <TextField fx:id="nameTextField2" layoutX="216.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField2" layoutX="216.0" layoutY="405.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Chips" />
-         <ToggleButton layoutX="244.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
+         <ToggleButton fx:id="toggleButton2" layoutX="244.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
          <TextField fx:id="nameTextField3" layoutX="469.0" layoutY="413.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField3" layoutX="469.0" layoutY="451.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Chips" />
-         <ToggleButton layoutX="496.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
+         <ToggleButton fx:id="toggleButton3" layoutX="496.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
          <TextField fx:id="nameTextField4" layoutX="706.0" layoutY="367.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField4" layoutX="706.0" layoutY="405.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Chips" />
-         <ToggleButton layoutX="734.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
+         <ToggleButton fx:id="toggleButton4" layoutX="734.0" layoutY="443.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
       <Group>
          <TextField fx:id="nameTextField5" layoutX="850.5" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />
          <TextField fx:id="numericTextField5" layoutX="850.5" layoutY="265.0" onKeyTyped="#handleNumericInput" prefHeight="31.0" prefWidth="170.0" promptText="Enter Chips" />
-         <ToggleButton layoutX="878.5" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
+         <ToggleButton fx:id="toggleButton5" layoutX="878.5" layoutY="303.0" mnemonicParsing="false" onAction="#handleToggleAction" prefWidth="114.0" text="Human Player" />
       </Group>
    </children>
 </AnchorPane>

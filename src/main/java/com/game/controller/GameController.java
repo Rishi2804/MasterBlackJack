@@ -23,9 +23,9 @@ public class GameController {
         view.startupScreen(stage);
     }
 
-    public void addPlayers(List<String> names, List<String> chips, List<Position> positions) {
+    public void addPlayers(List<String> names, List<String> chips, List<Position> positions, List<Boolean> playerType) {
         for (int i = 0; i < names.size(); i++) {
-            table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)));
+            table.addPlayer(names.get(i), Integer.parseInt(chips.get(i)), playerType.get(i));
             view.addNewPlayerHands(names.get(i), chips.get(i), positions.get(i));
         }
     }
@@ -76,6 +76,10 @@ public class GameController {
         String firstCard = table.getDealer().getHand().getCards().get(0).getString();
         view.addToDealerHand(firstCard);
         view.addToDealerHand("back_of_card");
+        if (table.getPlayers().get(0).getHand().getStatus() == Hand.Status.BLACKJACK) {
+            nextTurn();
+        }
+        aiPlayerPlay();
     }
 
     public void hit() {
@@ -87,11 +91,20 @@ public class GameController {
             }
             Card card = table.hit(currentPlayer);
             view.addToHand(card.getString(), playerTurnIndex);
-            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST ) {
                 view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
+                nextTurn();
+            } else if (currentPlayer.getHandTotal() == 21) {
+                view.setHandStatusText(playerTurnIndex, Hand.Status.STOOD);
                 nextTurn();
             } else {
                 view.toggleableChange("Double Down", false);
+
+            }
+            if (currentPlayer instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) currentPlayer;
+                temp.updateQValueAfterMove("HIT", table);
+                aiPlayerPlay(); // go again once hit
             }
         }
     }
@@ -113,10 +126,26 @@ public class GameController {
         }
     }
 
+    public void aiPlayerPlay() {
+        if (playerTurnIndex != -1 && table.getPlayers().get(playerTurnIndex) instanceof AIPlayer) {
+            AIPlayer currentPlayer = (AIPlayer) table.getPlayers().get(playerTurnIndex);
+            String action = currentPlayer.generateMove(table);
+            if (action == "HIT") {
+                hit();
+            } else if (action == "STAND"){
+                stand();
+            }
+        }
+    }
+
     public void stand() {
         if (gameInProgress) {
             Player currentPlayer = table.getPlayers().get(playerTurnIndex);
             table.stand(currentPlayer);
+            if (currentPlayer instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) currentPlayer;
+                temp.updateQValueAfterMove("STAND", table);
+            }
             view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
             nextTurn();
         }
@@ -130,9 +159,12 @@ public class GameController {
                 playerTurnIndex = -1;
                 gameInProgress = false;
                 dealerPlay();
+            } else if (table.getPlayers().get(playerTurnIndex).getHand().getStatus() == Hand.Status.BLACKJACK) {
+                nextTurn();
             } else {
                 boolean doubledown = table.getPlayers().get(playerTurnIndex).canDoubleDown();
                 view.toggleableChange("Double Down", doubledown);
+                aiPlayerPlay(); // will only do anything if current player is an AI
             }
         }
     }
@@ -159,6 +191,13 @@ public class GameController {
     }
 
     public void endGame() {
+        for (Player player : table.getPlayers()) {
+            if (player instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) player;
+                temp.saveQTable("qtable.dat");
+                break;
+            }
+        }
         table.endSession();
         view.stopGame();
         view.clearHands();

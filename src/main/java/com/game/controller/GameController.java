@@ -79,6 +79,7 @@ public class GameController {
         if (table.getPlayers().get(0).getHand().getStatus() == Hand.Status.BLACKJACK) {
             nextTurn();
         }
+        aiPlayerPlay();
     }
 
     public void hit() {
@@ -90,11 +91,20 @@ public class GameController {
             }
             Card card = table.hit(currentPlayer);
             view.addToHand(card.getString(), playerTurnIndex);
-            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
+            if (currentPlayer.getHand().getStatus() == Hand.Status.BUST ) {
                 view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
+                nextTurn();
+            } else if (currentPlayer.getHandTotal() == 21) {
+                view.setHandStatusText(playerTurnIndex, Hand.Status.STOOD);
                 nextTurn();
             } else {
                 view.toggleableChange("Double Down", false);
+
+            }
+            if (currentPlayer instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) currentPlayer;
+                temp.updateQValueAfterMove("HIT", table);
+                aiPlayerPlay(); // go again once hit
             }
         }
     }
@@ -116,10 +126,26 @@ public class GameController {
         }
     }
 
+    public void aiPlayerPlay() {
+        if (playerTurnIndex != -1 && table.getPlayers().get(playerTurnIndex) instanceof AIPlayer) {
+            AIPlayer currentPlayer = (AIPlayer) table.getPlayers().get(playerTurnIndex);
+            String action = currentPlayer.generateMove(table);
+            if (action == "HIT") {
+                hit();
+            } else if (action == "STAND"){
+                stand();
+            }
+        }
+    }
+
     public void stand() {
         if (gameInProgress) {
             Player currentPlayer = table.getPlayers().get(playerTurnIndex);
             table.stand(currentPlayer);
+            if (currentPlayer instanceof AIPlayer) {
+                AIPlayer temp = (AIPlayer) currentPlayer;
+                temp.updateQValueAfterMove("STAND", table);
+            }
             view.setHandStatusText(playerTurnIndex, currentPlayer.getHand().getStatus());
             nextTurn();
         }
@@ -138,6 +164,7 @@ public class GameController {
             } else {
                 boolean doubledown = table.getPlayers().get(playerTurnIndex).canDoubleDown();
                 view.toggleableChange("Double Down", doubledown);
+                aiPlayerPlay(); // will only do anything if current player is an AI
             }
         }
     }

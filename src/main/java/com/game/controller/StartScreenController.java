@@ -83,10 +83,10 @@ public class StartScreenController {
             tb.setOnAction(actionEvent -> {
                 int num = toggleButtons.indexOf(tb);
                 if (tb.isSelected()) {
-                    System.out.println("Toggle button is selected");
+                    tb.setText("AI Player");
                     aiIndecies.add(num);
                 } else {
-                    System.out.println("Toggle button is deselected");
+                    tb.setText("Human Player");
                     aiIndecies.remove(Integer.valueOf(num));
                 }
             });
@@ -100,10 +100,6 @@ public class StartScreenController {
         List<String> chips = new ArrayList<>();
         List<Position> positions = new ArrayList<>();
         List<Boolean> playerType = new ArrayList<>();
-
-        for (Number b : aiIndecies) {
-            System.out.println(b);
-        }
 
         for (int i = 0; i < 5; i++) {
             TextField nameField = nameFields.get(i);

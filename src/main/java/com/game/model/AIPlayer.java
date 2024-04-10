@@ -7,7 +7,6 @@ import java.util.Random;
 public class AIPlayer extends Player {
     private static final double LEARNING_RATE = 0.1;
     private static final double DISCOUNT_FACTOR = 0.9;
-    private static final double EXPLORATION_RATE = 0.1;
 
     private enum Action {
         HIT,
@@ -42,20 +41,13 @@ public class AIPlayer extends Player {
     }
 
     private Action chooseAction(State state) {
-        // Epsilon-greedy strategy
-        Random random = new Random();
-        if (random.nextDouble() < EXPLORATION_RATE) {
-            // Explore: choose a random action
-            return (random.nextDouble() < 0.5) ? Action.HIT : Action.STAND;
+        double hitValue = qTable.getOrDefault(new StateActionPair(state, Action.HIT), 0.0);
+        double standValue = qTable.getOrDefault(new StateActionPair(state, Action.STAND), 0.0);
+
+        if (hitValue == 0.0 && standValue == 0.0) {
+            return (state.playerHandTotal < 17) ? Action.HIT : Action.STAND;
         } else {
-            // Exploit: choose action with highest Q-value for the current state
-            double hitValue = qTable.getOrDefault(new StateActionPair(state, Action.HIT), 0.0);
-            double standValue = qTable.getOrDefault(new StateActionPair(state, Action.STAND), 0.0);
-
-            if (hitValue == 0.0 && standValue == 0.0) {
-                return (state.playerHandTotal < 17) ? Action.HIT : Action.STAND;
-            }
-
+            // Choose action with highest Q-value for the current state
             return (hitValue > standValue) ? Action.HIT : Action.STAND;
         }
     }

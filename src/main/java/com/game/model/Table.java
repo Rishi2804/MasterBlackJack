@@ -54,6 +54,9 @@ public class Table {
         dealer.clearHand();
         dealer.addCardToHand(deck.dealCard());
         dealer.addCardToHand(deck.dealCard());
+        if (dealer.getHandTotal() == 21) {
+            dealer.getHand().setStatus(Hand.Status.BLACKJACK);
+        }
     }
 
     // Dealer action: play until hand gets to 17
@@ -95,29 +98,48 @@ public class Table {
     }
 
     public void stand(Player player) {
-        player.getHand().setStatus(Hand.Status.STOOD);
+        if (player.getHand().getStatus() != Hand.Status.BLACKJACK) {
+            player.getHand().setStatus(Hand.Status.STOOD);
+        }
     }
 
     public void calculateWin() {
         for (Player player : players) {
             if (player.getHand().getStatus() != Hand.Status.BUST) {
                 if (dealer.getHand().getStatus() == Hand.Status.BUST) {
-                    player.getHand().setStatus(Hand.Status.WIN);
-                    player.addChips(player.getBet() * 2);
+                    if (player.getHand().getStatus() == Hand.Status.BLACKJACK) {
+                        player.addChips((player.getBet() * 2) + player.getBet() / 2);
+                    } else {
+                        player.addChips(player.getBet() * 2);
+                    }
                     player.setBet(0);
+                    player.getHand().setStatus(Hand.Status.WIN);
                     continue;
                 }
                 if (player.getHandTotal() > dealer.getHandTotal()) {
-                    player.getHand().setStatus(Hand.Status.WIN);
-                    player.addChips(player.getBet() * 2);
+                    if (player.getHand().getStatus() == Hand.Status.BLACKJACK) {
+                        player.addChips((player.getBet() * 2) + player.getBet() / 2);
+                    } else {
+                        player.addChips(player.getBet() * 2);
+                    }
                     player.setBet(0);
+                    player.getHand().setStatus(Hand.Status.WIN);
                 } else if (player.getHandTotal() < dealer.getHandTotal()) {
                     player.getHand().setStatus(Hand.Status.LOSE);
                     player.setBet(0);
                 } else {
-                    player.getHand().setStatus(Hand.Status.PUSH);
-                    player.addChips(player.getBet());
-                    player.setBet(0);
+                    if (player.getHand().getStatus() == Hand.Status.BLACKJACK && dealer.getHand().getStatus() != Hand.Status.BLACKJACK) {
+                        player.addChips((player.getBet() * 2) + player.getBet() / 2);
+                        player.setBet(0);
+                        player.getHand().setStatus(Hand.Status.WIN);
+                    } else if (player.getHand().getStatus() != Hand.Status.BLACKJACK && dealer.getHand().getStatus() == Hand.Status.BLACKJACK) {
+                        player.getHand().setStatus(Hand.Status.LOSE);
+                        player.setBet(0);
+                    } else {
+                        player.getHand().setStatus(Hand.Status.PUSH);
+                        player.addChips(player.getBet());
+                        player.setBet(0);
+                    }
                 }
             } else {
                 player.getHand().setStatus(Hand.Status.LOSE);

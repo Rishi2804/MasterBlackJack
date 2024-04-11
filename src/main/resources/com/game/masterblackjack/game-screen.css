@@ -65,3 +65,12 @@
      -fx-background-radius: 5px; /* Background radius */
      -fx-cursor: hand; /* Cursor on hover */
  }
+
+ #error-label {
+   -fx-text-fill: white; /* White text color */
+   -fx-background-color: #dc3545; /* Red background color */
+   -fx-font-size: 15px;
+   -fx-font-weight: bold;
+   -fx-padding: 5px 10px; /* Padding for better readability */
+   -fx-background-radius: 5px; /* Rounded corners */
+ }

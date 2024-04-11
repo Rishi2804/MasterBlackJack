@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,7 @@ public class GameView {
     private Stage stage;
     private Scene scene;
     private AnchorPane root;
+    private Label errorLabel;
     private List<HandView> playerHands;
     private HandView dealerHand;
     private List<Control> toggleables;
@@ -91,9 +93,17 @@ public class GameView {
         leaveBtn.setLayoutY(50.0);
         leaveBtn.setOnAction(actionEvent -> gameController.endGame());
 
+        // Error Label
+        errorLabel = new Label();
+        errorLabel.setId("error-label");
+        errorLabel.setVisible(false);
+        errorLabel.setLayoutX(375.0);
+        errorLabel.setLayoutY(150.0);
+
         root.getChildren().add(background);
         root.getChildren().add(btnGroup);
         root.getChildren().add(leaveBtn);
+        root.getChildren().add(errorLabel);
         root.getChildren().add(dealerHand.getHand());
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/com/game/masterblackjack/game-screen.css").toExternalForm());
@@ -176,6 +186,15 @@ public class GameView {
         if (status == Status.DOUBLE_DOWN) playerHands.get(index).setStatusText("DOUBLE DOWN");
     }
 
+    public void setErrorText(String text) {
+        errorLabel.setText(text);
+        errorLabel.setVisible(true);
+    }
+
+    public void hideErrorText() {
+        errorLabel.setVisible(false);
+    }
+
     public void addToHand(String cardName, int playerIndex) {
         CardView newCard = new CardView(cardName);
         playerHands.get(playerIndex).addToHand(newCard);
@@ -203,5 +222,4 @@ public class GameView {
         stage.setScene(scene);
         stage.show();
     }
-
 }

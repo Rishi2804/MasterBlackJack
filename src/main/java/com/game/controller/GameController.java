@@ -43,17 +43,26 @@ public class GameController {
     public void startGame() {
         for (int i = 0; i < table.getPlayers().size(); i++) {
             int bet = view.getPlayerHands().get(i).getFieldText(true);
-            if (bet == 0) return;
+            if (bet == 0) {
+                view.setErrorText("Please enter valid bet amounts");
+                return;
+            }
             Player player = table.getPlayers().get(i);
             int chips = player.getChips();
             if (chips == 0) {
                 int newChips = view.getPlayerHands().get(i).getFieldText(false);
-                if (newChips == 0) return;
+                if (newChips == 0) {
+                    view.setErrorText("Please enter valid chips amount");
+                    return;
+                }
                 view.getPlayerHands().get(i).setFieldVisible(false, false);
                 player.addChips(newChips);
                 chips = newChips;
             }
-            if (bet > chips) return;
+            if (bet > chips) {
+                view.setErrorText("Please enter valid bets");
+                return;
+            }
             player.setBet(bet);
             player.removeChips(bet);
             chips = player.getChips();
@@ -64,6 +73,7 @@ public class GameController {
         view.startGame(showDoubleDown);
         table.startGame();
         gameInProgress = true;
+        view.hideErrorText();
         // add all the intial player cards to the display
         for (int i = 0; i < table.getPlayers().size(); i++) {
             for (int j = 0; j < table.getPlayers().get(i).getHand().getCards().size(); j++) {

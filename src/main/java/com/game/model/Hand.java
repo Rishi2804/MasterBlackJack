@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Hand {
     public enum Status {
-        STOOD, BUST, WIN, LOSE, PUSH, BLACKJACK, NONE
+        STOOD, BUST, WIN, LOSE, PUSH, BLACKJACK, DOUBLE_DOWN, NONE
     }
     private List<Card> cards;
     private Status status;

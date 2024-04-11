@@ -121,6 +121,8 @@ public class GameController {
             view.getPlayerHands().get(playerTurnIndex).setNewChipsText(String.valueOf(currentPlayer.getChips()));
             if (currentPlayer.getHand().getStatus() == Hand.Status.BUST) {
                 view.setHandStatusText(playerTurnIndex, Hand.Status.BUST);
+            } else {
+                view.setHandStatusText(playerTurnIndex, Hand.Status.DOUBLE_DOWN);
             }
             nextTurn();
         }

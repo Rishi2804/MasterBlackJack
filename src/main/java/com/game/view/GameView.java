@@ -173,6 +173,7 @@ public class GameView {
 
     public void setHandStatusText(int index, Status status) {
         if (status != Status.NONE) playerHands.get(index).setStatusText(status.toString());
+        if (status == Status.DOUBLE_DOWN) playerHands.get(index).setStatusText("DOUBLE DOWN");
     }
 
     public void addToHand(String cardName, int playerIndex) {

@@ -95,6 +95,7 @@ public class Table {
         if (player.getChips() >= bet) {
             player.removeChips(bet);
             player.setBet(bet * 2);
+            player.getHand().setStatus(Hand.Status.DOUBLE_DOWN);
             Card card = hit(player);
             return card;
         }

@@ -82,7 +82,6 @@ public class AIPlayer extends Player {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(qTable);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

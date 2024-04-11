@@ -58,6 +58,7 @@ public class GameController {
                 view.getPlayerHands().get(i).setFieldVisible(false, false);
                 player.addChips(newChips);
                 chips = newChips;
+                view.getPlayerHands().get(i).setNewChipsText(String.valueOf(chips));
             }
             if (bet > chips) {
                 view.setErrorText("Please enter valid bets");

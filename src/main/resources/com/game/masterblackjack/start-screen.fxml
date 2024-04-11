@@ -20,6 +20,7 @@
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000009b" height="650.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="1092.5" />
       <Label alignment="CENTER" layoutX="164.0" layoutY="77.0" prefHeight="53.0" prefWidth="767.0" text="Welcome to MasterBlackjack!" textAlignment="CENTER" />
+      <Label fx:id="error" alignment="CENTER" layoutX="350.0" layoutY="160.0" text="Please enter all fields correctly for every player you want to add" textAlignment="CENTER" visible="false" />
       <Button layoutX="490.25" layoutY="570.0" mnemonicParsing="false" onAction="#gameViewSwitcher" prefHeight="42.0" prefWidth="134.0" text="Start Game" />
       <Group fx:id="group1">
          <TextField fx:id="nameTextField1" layoutX="72.0" layoutY="227.0" prefHeight="31.0" prefWidth="170.0" promptText="Enter Name" />

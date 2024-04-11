@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
@@ -50,6 +51,8 @@ public class StartScreenController {
     private ToggleButton toggleButton4;
     @FXML
     private ToggleButton toggleButton5;
+    @FXML
+    private Label error;
     List<TextField> nameFields;
     List<TextField> numericFields;
     List<ToggleButton> toggleButtons;
@@ -114,6 +117,7 @@ public class StartScreenController {
 
         stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         if (names.isEmpty()) {
+            error.setVisible(true);
             return;
         }
         gameController.initialize(stage);

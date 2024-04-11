@@ -57,3 +57,13 @@
 .button:pressed {
     -fx-background-color: #FFA500; /* Orange background color when pressed */
 }
+
+#error {
+   -fx-font-family: "Montserrat";
+   -fx-text-fill: white; /* White text color */
+   -fx-background-color: #dc3545; /* Red background color */
+   -fx-font-size: 15px;
+   -fx-font-weight: bold;
+   -fx-padding: 5px 10px; /* Padding for better readability */
+   -fx-background-radius: 5px; /* Rounded corners */
+ }
